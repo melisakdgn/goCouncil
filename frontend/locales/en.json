@@ -1,0 +1,115 @@
+{
+  "nav": {
+    "home": "Home",
+    "candidates": "Candidates",
+    "electionProcess": "Election Process",
+    "achievements": "Achievements",
+    "preferenceMatching": "Preference Matching",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "home": {
+    "heroTitle1": "Stronger together.",
+    "heroTitle2": "Better workplace.",
+    "heroSubtitle": "We support your works council election – with clear processes, the right information and solutions that make a difference.",
+    "heroCTA": "Learn more",
+    "candidatesTitle": "Candidates",
+    "candidatesSubtitle": "Get to know the people who are running for the works council.",
+    "viewAll": "View all",
+    "showMore": "Show more candidates",
+    "achievementsTitle": "Our Achievements",
+    "newsTitle": "News & Updates",
+    "participationTitle": "Your participation counts!",
+    "participationSubtitle": "Together we can shape a fair and positive future at work.",
+    "participationCTA": "Learn more",
+    "pillars": {
+      "fairRep": "Fair representation",
+      "fairRepDesc": "For all employees – independent and impartial.",
+      "strongTogether": "Strong together",
+      "strongTogetherDesc": "We listen, connect and find the right solutions.",
+      "yourRights": "Your rights",
+      "yourRightsDesc": "We protect your rights and promote your interests.",
+      "achievements": "Our achievements",
+      "achievementsDesc": "Real results that create value for you and your workplace."
+    },
+    "electionProcessTitle": "Election Process",
+    "electionProcessSubtitle": "Learn more about the steps and important information.",
+    "preferenceTitle": "Preference Matching",
+    "preferenceSubtitle": "Answer a few questions about what matters to you. We will show you the top 3 candidates who best match your preferences and values.",
+    "preferenceCTA": "Start now",
+    "preferenceFeature1Title": "Personal & anonymous",
+    "preferenceFeature1Desc": "Your answers are confidential.",
+    "preferenceFeature2Title": "Smart matching",
+    "preferenceFeature2Desc": "Our system shows you the candidates who fit your preferences.",
+    "preferenceFeature3Title": "Top 3 results",
+    "preferenceFeature3Desc": "See your best matches with clear reasons."
+  },
+  "candidates": {
+    "title": "Candidates",
+    "subtitle": "Get to know the people running for the works council.",
+    "viewProfile": "View profile",
+    "independent": "Independent",
+    "searchPlaceholder": "Search candidates...",
+    "noResults": "No candidates found."
+  },
+  "candidateDetail": {
+    "back": "Back to candidates",
+    "team": "Team",
+    "independent": "Independent candidate",
+    "about": "About"
+  },
+  "electionProcess": {
+    "title": "Election Process",
+    "subtitle": "Step-by-step guide to the works council election.",
+    "completed": "Completed",
+    "current": "Current",
+    "upcoming": "Upcoming"
+  },
+  "achievements": {
+    "title": "Our Achievements",
+    "subtitle": "Real results that create value for employees and the workplace."
+  },
+  "preference": {
+    "title": "Preference Matching",
+    "subtitle": "Answer a few questions and discover which candidates align best with your values.",
+    "step": "Question {{current}} of {{total}}",
+    "next": "Next",
+    "back": "Back",
+    "submit": "See my matches",
+    "resultsTitle": "Your Top Matches",
+    "resultsSubtitle": "Based on your answers, these candidates align best with your priorities.",
+    "matchPercent": "{{percent}}% match",
+    "matchingTopics": "Matching topics",
+    "viewProfile": "View profile",
+    "startOver": "Start over",
+    "anonymous": "Your answers are completely anonymous.",
+    "loading": "Calculating your matches..."
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Frequently asked questions about the works council election."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with the works council team.",
+    "nameLabel": "Your name",
+    "emailLabel": "Your email",
+    "subjectLabel": "Subject (optional)",
+    "messageLabel": "Your message",
+    "submit": "Send message",
+    "successTitle": "Message sent!",
+    "successSubtitle": "Thank you for reaching out. We will get back to you soon.",
+    "errorMessage": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "imprint": "Imprint",
+    "dataProtection": "Data Protection",
+    "accessibility": "Accessibility"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "retry": "Try again",
+    "viewAll": "View all"
+  }
+}

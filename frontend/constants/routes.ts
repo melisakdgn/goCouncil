@@ -1,0 +1,11 @@
+export const ROUTES = {
+  home: "/",
+  candidates: "/candidates",
+  candidateDetail: (id: string) => `/candidates/${id}`,
+  electionProcess: "/election-process",
+  achievements: "/achievements",
+  preferenceMatching: "/preference-matching",
+  preferenceResults: (sessionId: string) => `/preference-matching/results/${sessionId}`,
+  faq: "/faq",
+  contact: "/contact",
+} as const;

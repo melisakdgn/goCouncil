@@ -1,0 +1,115 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "candidates": "Kandidaten",
+    "electionProcess": "Wahlprozess",
+    "achievements": "Errungenschaften",
+    "preferenceMatching": "Präferenz-Matching",
+    "faq": "FAQ",
+    "contact": "Kontakt"
+  },
+  "home": {
+    "heroTitle1": "Gemeinsam stärker.",
+    "heroTitle2": "Besserer Arbeitsplatz.",
+    "heroSubtitle": "Wir unterstützen Ihre Betriebsratswahl – mit klaren Prozessen, den richtigen Informationen und Lösungen, die einen Unterschied machen.",
+    "heroCTA": "Mehr erfahren",
+    "candidatesTitle": "Kandidaten",
+    "candidatesSubtitle": "Lernen Sie die Menschen kennen, die für den Betriebsrat kandidieren.",
+    "viewAll": "Alle anzeigen",
+    "showMore": "Mehr Kandidaten anzeigen",
+    "achievementsTitle": "Unsere Errungenschaften",
+    "newsTitle": "Neuigkeiten & Updates",
+    "participationTitle": "Ihre Teilnahme zählt!",
+    "participationSubtitle": "Gemeinsam können wir eine faire und positive Zukunft am Arbeitsplatz gestalten.",
+    "participationCTA": "Mehr erfahren",
+    "pillars": {
+      "fairRep": "Faire Vertretung",
+      "fairRepDesc": "Für alle Mitarbeiter – unabhängig und unparteiisch.",
+      "strongTogether": "Gemeinsam stark",
+      "strongTogetherDesc": "Wir hören zu, verbinden und finden die richtigen Lösungen.",
+      "yourRights": "Ihre Rechte",
+      "yourRightsDesc": "Wir schützen Ihre Rechte und vertreten Ihre Interessen.",
+      "achievements": "Unsere Errungenschaften",
+      "achievementsDesc": "Echte Ergebnisse, die Mehrwert für Sie und Ihren Arbeitsplatz schaffen."
+    },
+    "electionProcessTitle": "Wahlprozess",
+    "electionProcessSubtitle": "Erfahren Sie mehr über die Schritte und wichtige Informationen.",
+    "preferenceTitle": "Präferenz-Matching",
+    "preferenceSubtitle": "Beantworten Sie ein paar Fragen zu dem, was Ihnen wichtig ist. Wir zeigen Ihnen die Top 3 Kandidaten, die am besten zu Ihren Präferenzen und Werten passen.",
+    "preferenceCTA": "Jetzt starten",
+    "preferenceFeature1Title": "Persönlich & anonym",
+    "preferenceFeature1Desc": "Ihre Antworten sind vertraulich.",
+    "preferenceFeature2Title": "Intelligentes Matching",
+    "preferenceFeature2Desc": "Unser System zeigt Ihnen die Kandidaten, die zu Ihren Präferenzen passen.",
+    "preferenceFeature3Title": "Top 3 Ergebnisse",
+    "preferenceFeature3Desc": "Sehen Sie Ihre besten Übereinstimmungen mit klaren Begründungen."
+  },
+  "candidates": {
+    "title": "Kandidaten",
+    "subtitle": "Lernen Sie die Menschen kennen, die für den Betriebsrat kandidieren.",
+    "viewProfile": "Profil ansehen",
+    "independent": "Unabhängig",
+    "searchPlaceholder": "Kandidaten suchen...",
+    "noResults": "Keine Kandidaten gefunden."
+  },
+  "candidateDetail": {
+    "back": "Zurück zu den Kandidaten",
+    "team": "Team",
+    "independent": "Unabhängiger Kandidat",
+    "about": "Über"
+  },
+  "electionProcess": {
+    "title": "Wahlprozess",
+    "subtitle": "Schritt-für-Schritt-Leitfaden zur Betriebsratswahl.",
+    "completed": "Abgeschlossen",
+    "current": "Aktuell",
+    "upcoming": "Bevorstehend"
+  },
+  "achievements": {
+    "title": "Unsere Errungenschaften",
+    "subtitle": "Echte Ergebnisse, die Mehrwert für Mitarbeiter und den Arbeitsplatz schaffen."
+  },
+  "preference": {
+    "title": "Präferenz-Matching",
+    "subtitle": "Beantworten Sie ein paar Fragen und entdecken Sie, welche Kandidaten am besten zu Ihren Werten passen.",
+    "step": "Frage {{current}} von {{total}}",
+    "next": "Weiter",
+    "back": "Zurück",
+    "submit": "Meine Übereinstimmungen anzeigen",
+    "resultsTitle": "Ihre Top-Übereinstimmungen",
+    "resultsSubtitle": "Basierend auf Ihren Antworten passen diese Kandidaten am besten zu Ihren Prioritäten.",
+    "matchPercent": "{{percent}}% Übereinstimmung",
+    "matchingTopics": "Übereinstimmende Themen",
+    "viewProfile": "Profil ansehen",
+    "startOver": "Neu starten",
+    "anonymous": "Ihre Antworten sind vollständig anonym.",
+    "loading": "Ihre Übereinstimmungen werden berechnet..."
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Häufig gestellte Fragen zur Betriebsratswahl."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Nehmen Sie Kontakt mit dem Betriebsratsteam auf.",
+    "nameLabel": "Ihr Name",
+    "emailLabel": "Ihre E-Mail",
+    "subjectLabel": "Betreff (optional)",
+    "messageLabel": "Ihre Nachricht",
+    "submit": "Nachricht senden",
+    "successTitle": "Nachricht gesendet!",
+    "successSubtitle": "Vielen Dank für Ihre Anfrage. Wir werden uns bald bei Ihnen melden.",
+    "errorMessage": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  },
+  "footer": {
+    "imprint": "Impressum",
+    "dataProtection": "Datenschutz",
+    "accessibility": "Barrierefreiheit"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Etwas ist schiefgelaufen.",
+    "retry": "Erneut versuchen",
+    "viewAll": "Alle anzeigen"
+  }
+}
