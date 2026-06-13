@@ -7,29 +7,47 @@ import Footer from "./Footer";
 interface AppLayoutProps {
   children: React.ReactNode;
   scrollable?: boolean;
+  /** When true, children render full-width without the max-width container.
+   *  Each section is responsible for its own inner container. */
+  fullWidth?: boolean;
 }
 
-export default function AppLayout({ children, scrollable = true }: AppLayoutProps) {
-  const content = (
-    <View style={styles.inner}>
-      <Header />
-      <View style={styles.pageContent}>{children}</View>
-      <Footer />
-    </View>
+export default function AppLayout({
+  children,
+  scrollable = true,
+  fullWidth = false,
+}: AppLayoutProps) {
+  const pageChildren = fullWidth ? (
+    children
+  ) : (
+    <View style={styles.pageContent}>{children}</View>
   );
 
   if (!scrollable) {
-    return <View style={styles.root}>{content}</View>;
+    return (
+      <View style={styles.root}>
+        <Header />
+        <View style={styles.body}>
+          {pageChildren}
+          <Footer />
+        </View>
+      </View>
+    );
   }
 
   return (
-    <ScrollView
-      style={styles.root}
-      contentContainerStyle={styles.scrollContent}
-      showsVerticalScrollIndicator={false}
-    >
-      {content}
-    </ScrollView>
+    <View style={styles.root}>
+      {/* Header lives outside the ScrollView so it stays fixed at the top */}
+      <Header />
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {pageChildren}
+        <Footer />
+      </ScrollView>
+    </View>
   );
 }
 
@@ -38,15 +56,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.backgroundLight,
   },
+  body: {
+    flex: 1,
+  },
+  scroll: {
+    flex: 1,
+  },
   scrollContent: {
     flexGrow: 1,
   },
-  inner: {
-    flex: 1,
-    minHeight: "100%",
-  },
   pageContent: {
-    flex: 1,
     maxWidth: layout.maxContentWidth,
     width: "100%",
     alignSelf: "center",

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
-from app.api.routes import candidates, election_process, achievements, faq, contact, preference
+from app.api.routes import candidates, election_process, achievements, faq, contact, preference, problems
 
 app = FastAPI(
     title="Go Council API",
@@ -24,6 +24,7 @@ app.include_router(achievements.router, prefix="/api/achievements", tags=["Achie
 app.include_router(faq.router, prefix="/api/faqs", tags=["FAQ"])
 app.include_router(contact.router, prefix="/api/contact", tags=["Contact"])
 app.include_router(preference.router, prefix="/api/preference", tags=["Preference Matching"])
+app.include_router(problems.router, prefix="/api/problems", tags=["Problems"])
 
 
 @app.get("/health", tags=["Health"])

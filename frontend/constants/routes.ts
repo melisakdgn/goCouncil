@@ -8,4 +8,5 @@ export const ROUTES = {
   preferenceResults: (sessionId: string) => `/preference-matching/results/${sessionId}`,
   faq: "/faq",
   contact: "/contact",
+  problems: "/problems",
 } as const;

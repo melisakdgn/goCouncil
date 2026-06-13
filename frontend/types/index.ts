@@ -144,6 +144,60 @@ export interface NewsUpdate {
   summary_de?: string;
 }
 
+// ─── Problems ─────────────────────────────────────────────────────────────────
+
+export type ProblemCategory =
+  | "workplace_conditions"
+  | "salary_benefits"
+  | "management_communication"
+  | "working_hours"
+  | "health_safety"
+  | "discrimination_fairness"
+  | "infrastructure"
+  | "other";
+
+export type ProblemUrgency = "low" | "medium" | "high";
+
+export type ProblemStatus = "new" | "under_review" | "responded" | "resolved";
+
+export interface ProblemComment {
+  id: string;
+  problem_id: string;
+  content: string;
+  created_at: string;
+}
+
+export interface ProblemPost {
+  id: string;
+  title: string;
+  content: string;
+  category: ProblemCategory;
+  urgency: ProblemUrgency;
+  status: ProblemStatus;
+  like_count: number;
+  council_response?: string;
+  council_response_created_at?: string;
+  created_at: string;
+  updated_at: string;
+  comments: ProblemComment[];
+}
+
+export interface ProblemListResponse {
+  items: ProblemPost[];
+  total: number;
+}
+
+export interface ProblemPostCreate {
+  title: string;
+  content: string;
+  category: ProblemCategory;
+  urgency: ProblemUrgency;
+}
+
+export interface ProblemCommentCreate {
+  content: string;
+}
+
 // ─── Locale ───────────────────────────────────────────────────────────────────
 
 export type Locale = "en" | "de";

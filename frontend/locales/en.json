@@ -6,7 +6,8 @@
     "achievements": "Achievements",
     "preferenceMatching": "Preference Matching",
     "faq": "FAQ",
-    "contact": "Contact"
+    "contact": "Contact",
+    "problems": "Problems"
   },
   "home": {
     "heroTitle1": "Stronger together.",
@@ -111,5 +112,65 @@
     "error": "Something went wrong.",
     "retry": "Try again",
     "viewAll": "View all"
+  },
+  "problems": {
+    "title": "Problems Board",
+    "subtitle": "Share workplace concerns anonymously. The working council reads and responds to every post.",
+    "reportButton": "Report a Problem",
+    "cancelButton": "Cancel",
+    "emptyTitle": "No problems reported yet",
+    "emptySubtitle": "Be the first to share a workplace concern. All posts are completely anonymous.",
+    "postedAnonymously": "Posted anonymously",
+    "form": {
+      "title": "Report an Anonymous Problem",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Brief summary of the issue",
+      "contentLabel": "Description",
+      "contentPlaceholder": "Describe the problem in detail. Your identity will not be shared.",
+      "categoryLabel": "Category",
+      "urgencyLabel": "Urgency",
+      "submit": "Submit Anonymously",
+      "submitting": "Submitting...",
+      "successTitle": "Problem submitted!",
+      "successSubtitle": "Your concern has been shared anonymously with the working council.",
+      "errorMessage": "Failed to submit. Please try again.",
+      "validationTitle": "Please enter a title.",
+      "validationContent": "Please describe the problem."
+    },
+    "categories": {
+      "workplace_conditions": "Workplace Conditions",
+      "salary_benefits": "Salary & Benefits",
+      "management_communication": "Management Communication",
+      "working_hours": "Working Hours",
+      "health_safety": "Health & Safety",
+      "discrimination_fairness": "Discrimination & Fairness",
+      "infrastructure": "Infrastructure",
+      "other": "Other"
+    },
+    "urgency": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "status": {
+      "new": "New",
+      "under_review": "Under Review",
+      "responded": "Responded",
+      "resolved": "Resolved"
+    },
+    "likes": "{{count}} likes",
+    "comments": "{{count}} comments",
+    "councilResponse": "Working Council Response",
+    "noResponse": "No official response yet",
+    "addResponse": "Add Council Response",
+    "responseLabel": "Official response",
+    "responsePlaceholder": "Write the official working council response...",
+    "submitResponse": "Publish Response",
+    "hideComments": "Hide comments",
+    "showComments": "Show {{count}} comments",
+    "commentPlaceholder": "Add an anonymous comment...",
+    "submitComment": "Post",
+    "anonymousEmployee": "Anonymous Employee",
+    "loadingError": "Could not load problems. Please try again."
   }
 }

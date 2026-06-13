@@ -3,7 +3,7 @@ Run with:  python -m app.seed.seed_db
 """
 
 import uuid
-from datetime import date
+from datetime import date, datetime, timezone
 
 from app.database import SessionLocal
 from app.models.achievement import Achievement
@@ -11,6 +11,7 @@ from app.models.candidate import Candidate, Team
 from app.models.election import Election, ElectionStep
 from app.models.faq import FAQItem
 from app.models.preference import AnswerOption, CandidatePreferenceProfile, PreferenceQuestion
+from app.models.problem import ProblemComment, ProblemPost
 
 
 def seed() -> None:
@@ -158,6 +159,99 @@ def seed() -> None:
         ]
         for candidate, answers in profiles_data:
             db.add(CandidatePreferenceProfile(candidate_id=candidate.id, answers=answers))
+
+        # ── Problem Posts ──────────────────────────────────────────────────
+        now = datetime.now(timezone.utc)
+
+        def dt(days_ago: int) -> datetime:
+            from datetime import timedelta
+            return datetime(2024, 6, 1, tzinfo=timezone.utc) - timedelta(days=days_ago)
+
+        p1 = ProblemPost(
+            title="Unclear communication about shift changes",
+            content=(
+                "Shift changes are often communicated with less than 24 hours notice, "
+                "making it extremely difficult to arrange childcare, transportation, or adjust personal plans. "
+                "This has happened at least 5 times in the last two months and is affecting morale and work-life balance."
+            ),
+            category="management_communication",
+            urgency="high",
+            status="responded",
+            like_count=12,
+            council_response=(
+                "We have heard your concern and are actively working with management to improve shift change procedures. "
+                "Starting next month, all shift changes must be communicated at least 5 working days in advance via the company app. "
+                "Exceptions will require direct approval from department heads. Thank you for raising this."
+            ),
+            council_response_created_at=dt(2),
+            created_at=dt(14),
+            updated_at=dt(2),
+        )
+        p2 = ProblemPost(
+            title="Noisy workspace makes focused work difficult",
+            content=(
+                "The open-plan office has become increasingly noisy, especially in the afternoons. "
+                "Phone calls, loud conversations, and construction noise from the renovation next door make it "
+                "nearly impossible to concentrate on tasks requiring deep focus. "
+                "Several colleagues have resorted to working from home full-time just to get things done."
+            ),
+            category="workplace_conditions",
+            urgency="medium",
+            status="under_review",
+            like_count=23,
+            created_at=dt(10),
+            updated_at=dt(5),
+        )
+        p3 = ProblemPost(
+            title="Questions about overtime compensation policy",
+            content=(
+                "The current overtime compensation policy is very unclear. Many employees have been working "
+                "extra hours without being sure whether they will receive time off in lieu or additional pay. "
+                "HR gives different answers depending on who you ask. A clear, written policy that is accessible "
+                "to all employees is urgently needed."
+            ),
+            category="salary_benefits",
+            urgency="high",
+            status="new",
+            like_count=18,
+            created_at=dt(6),
+            updated_at=dt(6),
+        )
+        p4 = ProblemPost(
+            title="Need a better process for reporting team conflicts",
+            content=(
+                "When interpersonal conflicts arise between colleagues or with a manager, there is no clear, "
+                "safe process for reporting them. Employees are afraid of retaliation if they escalate formally, "
+                "and informal conversations often go nowhere. An anonymous, structured reporting channel would "
+                "make a significant difference."
+            ),
+            category="discrimination_fairness",
+            urgency="medium",
+            status="resolved",
+            like_count=8,
+            council_response=(
+                "We have updated our HR conflict resolution process and added a fully anonymous reporting channel. "
+                "You can now report team conflicts through the HR portal under 'Anonymous Feedback'. "
+                "Reports are reviewed by an independent mediator, not your direct management chain."
+            ),
+            council_response_created_at=dt(20),
+            created_at=dt(30),
+            updated_at=dt(20),
+        )
+
+        db.add_all([p1, p2, p3, p4])
+        db.flush()
+
+        problem_comments = [
+            ProblemComment(problem_id=p1.id, content="This has been going on for months. Really glad it is finally being addressed.", created_at=dt(12)),
+            ProblemComment(problem_id=p1.id, content="My entire team agrees. We sometimes find out about changes less than 12 hours before the shift starts.", created_at=dt(11)),
+            ProblemComment(problem_id=p2.id, content="I have had to work from home more and more because of this. Not a long-term solution.", created_at=dt(9)),
+            ProblemComment(problem_id=p2.id, content="Quiet zones or sound-dampening panels would make a huge difference.", created_at=dt(8)),
+            ProblemComment(problem_id=p2.id, content="Even just enforcing a no-calls-at-desk policy in the focus area would help.", created_at=dt(7)),
+            ProblemComment(problem_id=p3.id, content="The policy is completely opaque. I have been working overtime for three months with no clear answer.", created_at=dt(5)),
+            ProblemComment(problem_id=p4.id, content="This was really needed. Thank you to the council for acting on it.", created_at=dt(18)),
+        ]
+        db.add_all(problem_comments)
 
         db.commit()
         print("✅ Seed data inserted successfully.")

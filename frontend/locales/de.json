@@ -6,7 +6,8 @@
     "achievements": "Errungenschaften",
     "preferenceMatching": "Präferenz-Matching",
     "faq": "FAQ",
-    "contact": "Kontakt"
+    "contact": "Kontakt",
+    "problems": "Probleme"
   },
   "home": {
     "heroTitle1": "Gemeinsam stärker.",
@@ -111,5 +112,65 @@
     "error": "Etwas ist schiefgelaufen.",
     "retry": "Erneut versuchen",
     "viewAll": "Alle anzeigen"
+  },
+  "problems": {
+    "title": "Problembrett",
+    "subtitle": "Teilen Sie anonym Bedenken am Arbeitsplatz. Der Betriebsrat liest jeden Beitrag und antwortet.",
+    "reportButton": "Problem melden",
+    "cancelButton": "Abbrechen",
+    "emptyTitle": "Noch keine Probleme gemeldet",
+    "emptySubtitle": "Teilen Sie als Erste/r ein Arbeitsplatzproblem. Alle Beiträge sind vollständig anonym.",
+    "postedAnonymously": "Anonym veröffentlicht",
+    "form": {
+      "title": "Anonymes Problem melden",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Kurze Zusammenfassung des Problems",
+      "contentLabel": "Beschreibung",
+      "contentPlaceholder": "Beschreiben Sie das Problem ausführlich. Ihre Identität wird nicht weitergegeben.",
+      "categoryLabel": "Kategorie",
+      "urgencyLabel": "Dringlichkeit",
+      "submit": "Anonym einreichen",
+      "submitting": "Wird eingereicht...",
+      "successTitle": "Problem eingereicht!",
+      "successSubtitle": "Ihr Anliegen wurde anonym an den Betriebsrat weitergeleitet.",
+      "errorMessage": "Einreichung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "validationTitle": "Bitte geben Sie einen Titel ein.",
+      "validationContent": "Bitte beschreiben Sie das Problem."
+    },
+    "categories": {
+      "workplace_conditions": "Arbeitsbedingungen",
+      "salary_benefits": "Gehalt & Leistungen",
+      "management_communication": "Managementkommunikation",
+      "working_hours": "Arbeitszeiten",
+      "health_safety": "Gesundheit & Sicherheit",
+      "discrimination_fairness": "Diskriminierung & Fairness",
+      "infrastructure": "Infrastruktur",
+      "other": "Sonstiges"
+    },
+    "urgency": {
+      "low": "Niedrig",
+      "medium": "Mittel",
+      "high": "Hoch"
+    },
+    "status": {
+      "new": "Neu",
+      "under_review": "In Prüfung",
+      "responded": "Beantwortet",
+      "resolved": "Gelöst"
+    },
+    "likes": "{{count}} Likes",
+    "comments": "{{count}} Kommentare",
+    "councilResponse": "Betriebsratsantwort",
+    "noResponse": "Noch keine offizielle Antwort",
+    "addResponse": "Betriebsratsantwort hinzufügen",
+    "responseLabel": "Offizielle Antwort",
+    "responsePlaceholder": "Schreiben Sie die offizielle Betriebsratsantwort...",
+    "submitResponse": "Antwort veröffentlichen",
+    "hideComments": "Kommentare ausblenden",
+    "showComments": "{{count}} Kommentare anzeigen",
+    "commentPlaceholder": "Anonym kommentieren...",
+    "submitComment": "Senden",
+    "anonymousEmployee": "Anonymer Mitarbeiter",
+    "loadingError": "Probleme konnten nicht geladen werden. Bitte erneut versuchen."
   }
 }
