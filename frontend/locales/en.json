@@ -5,6 +5,7 @@
     "electionProcess": "Election Process",
     "achievements": "Achievements",
     "preferenceMatching": "Preference Matching",
+    "wahlOMat": "Wahl-O-Mat",
     "faq": "FAQ",
     "contact": "Contact",
     "problems": "Problems"
@@ -57,7 +58,8 @@
     "back": "Back to candidates",
     "team": "Team",
     "independent": "Independent candidate",
-    "about": "About"
+    "about": "About",
+    "notFound": "Candidate not found."
   },
   "electionProcess": {
     "title": "Election Process",
@@ -84,7 +86,27 @@
     "viewProfile": "View profile",
     "startOver": "Start over",
     "anonymous": "Your answers are completely anonymous.",
-    "loading": "Calculating your matches..."
+    "loading": "Calculating your matches...",
+    "resultsEmpty": "No results found. Please complete the questionnaire first."
+  },
+  "wahlOMat": {
+    "title": "Wahl-O-Mat",
+    "subtitle": "Compare your views with candidate positions — answer three statements to see your best matches.",
+    "step": "Statement {{current}} of {{total}}",
+    "thesisLabel": "Statement",
+    "agree": "Agree",
+    "neutral": "Neutral",
+    "disagree": "Disagree",
+    "next": "Next",
+    "back": "Back",
+    "submit": "See results",
+    "anonymous": "Your answers are anonymous and are not stored on the server in this demo.",
+    "resultsTitle": "Your Wahl-O-Mat Results",
+    "resultsSubtitle": "These candidates align most closely with your answers to the three statements.",
+    "matchPercent": "{{percent}}% match",
+    "viewProfile": "View profile",
+    "startOver": "Start over",
+    "sampleDisclaimer": "Sample demo only — matching is calculated locally from three example statements."
   },
   "faq": {
     "title": "FAQ",
@@ -106,6 +128,20 @@
     "imprint": "Imprint",
     "dataProtection": "Data Protection",
     "accessibility": "Accessibility"
+  },
+  "legal": {
+    "imprint": {
+      "title": "Imprint",
+      "body": "Go Council — Works Council Election Platform.\n\nThis is a sample imprint page. Replace with your organisation's legal details before production use."
+    },
+    "dataProtection": {
+      "title": "Data Protection",
+      "body": "We process personal data only as necessary to operate this platform. Preference matching and Wahl-O-Mat demo answers are handled according to your deployment configuration.\n\nReplace this text with your official privacy policy."
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "body": "We aim to make this platform accessible to all employees. If you encounter barriers, please contact the works council team.\n\nReplace this text with your accessibility statement."
+    }
   },
   "common": {
     "loading": "Loading...",

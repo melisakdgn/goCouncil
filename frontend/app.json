@@ -4,10 +4,12 @@
     "slug": "go-council",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./assets/images/favicon.png",
     "scheme": "gocouncil",
     "web": {
       "bundler": "metro",
-      "output": "static"
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
       "expo-router",

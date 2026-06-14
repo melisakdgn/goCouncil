@@ -1,7 +1,7 @@
 import { Link, usePathname } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
-import { borderRadius, colors, layout, spacing, typography } from "@/constants/theme";
+import { Image, Platform, Pressable, StyleSheet, Text, View } from "react-native";
+import { colors, layout, spacing, typography } from "@/constants/theme";
 import { ROUTES } from "@/constants/routes";
 import LanguageSwitcher from "./LanguageSwitcher";
 
@@ -21,6 +21,7 @@ const NAV_ITEMS = [
   { labelKey: "nav.electionProcess", href: ROUTES.electionProcess },
   { labelKey: "nav.achievements", href: ROUTES.achievements },
   { labelKey: "nav.preferenceMatching", href: ROUTES.preferenceMatching },
+  { labelKey: "nav.wahlOMat", href: ROUTES.wahlOMat },
   { labelKey: "nav.faq", href: ROUTES.faq },
   { labelKey: "nav.problems", href: ROUTES.problems },
   { labelKey: "nav.contact", href: ROUTES.contact },
@@ -45,12 +46,12 @@ export default function Header() {
       <View style={styles.inner}>
         {/* Logo */}
         <Link href={ROUTES.home} style={styles.logoLink}>
-          <View style={styles.logoWrapper}>
-            <View style={styles.logoMark}>
-              <Text style={styles.logoMarkText}>G</Text>
-            </View>
-            <Text style={styles.logoText}>GO COUNCIL</Text>
-          </View>
+          <Image
+            source={require("@/assets/images/logo.png")}
+            style={styles.logo}
+            accessibilityLabel="goCouncil"
+            resizeMode="contain"
+          />
         </Link>
 
         {/* Navigation */}
@@ -119,44 +120,33 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
     paddingHorizontal: layout.containerPaddingH,
     height: "100%",
+    gap: spacing.md,
   },
 
-  // Logo
-  logoLink: { textDecorationLine: "none" },
-  logoWrapper: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
-  logoMark: {
-    width: 34,
-    height: 34,
-    borderRadius: borderRadius.md,
-    backgroundColor: colors.primaryNavy,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  logoMarkText: {
-    fontSize: typography.fontSize.md,
-    fontWeight: typography.fontWeight.extraBold,
-    color: "#FFFFFF",
-  },
-  logoText: {
-    fontSize: typography.fontSize.base,
-    fontWeight: typography.fontWeight.bold,
-    color: colors.primaryNavy,
-    letterSpacing: 1.5,
+  // Logo — 1024×194 source; height fits within nav bar
+  logoLink: { flexShrink: 0, textDecorationLine: "none" },
+  logo: {
+    height: 40,
+    width: 211,
   },
 
-  // Nav
+  // Nav — centered with equal gaps between every item
   nav: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    gap: 0,
+    justifyContent: "center",
+    flexWrap: "nowrap",
+    gap: spacing.sm,
+    minWidth: 0,
   },
   navItem: {
-    paddingHorizontal: 10,
+    paddingHorizontal: spacing.xs,
     paddingVertical: 8,
     alignItems: "center",
+    justifyContent: "center",
     position: "relative",
   },
   navItemPressed: { opacity: 0.7 },
@@ -165,6 +155,8 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.medium,
     color: colors.textSecondary,
     letterSpacing: 0.1,
+    textAlign: "center",
+    ...(Platform.OS === "web" ? { whiteSpace: "nowrap" } : {}),
   },
   navLabelActive: {
     color: colors.primaryNavy,
@@ -173,14 +165,15 @@ const styles = StyleSheet.create({
   activeUnderline: {
     position: "absolute",
     bottom: 0,
-    left: 10,
-    right: 10,
+    left: spacing.xs,
+    right: spacing.xs,
     height: 2.5,
     backgroundColor: colors.accentOrange,
     borderRadius: 2,
   },
 
   headerRight: {
+    flexShrink: 0,
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.md,

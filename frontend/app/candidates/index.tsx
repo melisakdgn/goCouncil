@@ -1,21 +1,29 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TextInput, View } from "react-native";
 import AppLayout from "@/components/layout/AppLayout";
 import CandidateCard from "@/components/cards/CandidateCard";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { MOCK_CANDIDATES } from "@/constants/mockData";
 import { borderRadius, colors, spacing, typography } from "@/constants/theme";
+import { useCandidates } from "@/hooks/useCandidates";
 
 export default function CandidatesPage() {
   const { t } = useTranslation();
   const [search, setSearch] = useState("");
+  const { data, isLoading, isError } = useCandidates();
 
-  const filtered = MOCK_CANDIDATES.filter(
+  const candidates = useMemo(() => {
+    if (data?.items?.length) return data.items;
+    if (isError) return MOCK_CANDIDATES;
+    return [];
+  }, [data, isError]);
+
+  const filtered = candidates.filter(
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
       c.role.toLowerCase().includes(search.toLowerCase()) ||
-      c.team?.name.toLowerCase().includes(search.toLowerCase())
+      c.team?.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   return (
@@ -30,7 +38,11 @@ export default function CandidatesPage() {
         placeholderTextColor={colors.textMuted}
       />
 
-      {filtered.length === 0 ? (
+      {isLoading && candidates.length === 0 ? (
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={colors.primaryNavy} />
+        </View>
+      ) : filtered.length === 0 ? (
         <Text style={styles.empty}>{t("candidates.noResults")}</Text>
       ) : (
         <View style={styles.grid}>
@@ -55,6 +67,10 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
     backgroundColor: colors.backgroundWhite,
     marginBottom: spacing.xl,
+  },
+  centered: {
+    alignItems: "center",
+    paddingVertical: spacing["4xl"],
   },
   grid: {
     flexDirection: "row",

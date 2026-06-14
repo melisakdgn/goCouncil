@@ -1,25 +1,40 @@
 import { Link, useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import AppLayout from "@/components/layout/AppLayout";
-import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import SectionTitle from "@/components/ui/SectionTitle";
 import { MOCK_CANDIDATES } from "@/constants/mockData";
 import { ROUTES } from "@/constants/routes";
 import { colors, spacing, typography } from "@/constants/theme";
+import { useCandidate } from "@/hooks/useCandidates";
 
 export default function CandidateDetailPage() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const isDE = i18n.language === "de";
+  const { data, isLoading, isError } = useCandidate(id ?? "");
 
-  const candidate = MOCK_CANDIDATES.find((c) => c.id === id);
+  const mockCandidate = MOCK_CANDIDATES.find((c) => c.id === id);
+  const candidate = data ?? (isError ? mockCandidate : undefined);
+
+  if (isLoading && !candidate) {
+    return (
+      <AppLayout>
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={colors.primaryNavy} />
+        </View>
+      </AppLayout>
+    );
+  }
 
   if (!candidate) {
     return (
       <AppLayout>
-        <Text style={styles.notFound}>Candidate not found.</Text>
+        <Text style={styles.notFound}>{t("candidateDetail.notFound")}</Text>
+        <Link href={ROUTES.candidates}>
+          <Text style={styles.backText}>← {t("candidateDetail.back")}</Text>
+        </Link>
       </AppLayout>
     );
   }
@@ -60,6 +75,10 @@ export default function CandidateDetailPage() {
 }
 
 const styles = StyleSheet.create({
+  centered: {
+    alignItems: "center",
+    paddingVertical: spacing["4xl"],
+  },
   backLink: { textDecorationLine: "none", marginBottom: spacing.xl },
   backText: {
     fontSize: typography.fontSize.sm,
@@ -91,40 +110,43 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize["2xl"],
     fontWeight: typography.fontWeight.bold,
     color: colors.textPrimary,
-    marginBottom: 4,
+    textAlign: "center",
   },
   role: {
     fontSize: typography.fontSize.base,
     color: colors.textSecondary,
-    marginBottom: spacing.md,
+    textAlign: "center",
+    marginTop: spacing.xs,
   },
   badge: {
+    marginTop: spacing.md,
     backgroundColor: colors.backgroundSection,
-    borderRadius: 20,
-    paddingHorizontal: 14,
-    paddingVertical: 6,
-    marginBottom: spacing.xl,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    borderRadius: 999,
   },
   badgeText: {
     fontSize: typography.fontSize.sm,
-    fontWeight: typography.fontWeight.medium,
     color: colors.primaryNavy,
+    fontWeight: typography.fontWeight.medium,
   },
   divider: {
+    width: "100%",
     height: 1,
     backgroundColor: colors.borderColor,
-    width: "100%",
-    marginBottom: spacing.xl,
+    marginVertical: spacing.xl,
   },
   bio: {
     fontSize: typography.fontSize.base,
     color: colors.textSecondary,
-    lineHeight: typography.fontSize.base * 1.7,
+    lineHeight: typography.fontSize.base * typography.lineHeight.relaxed,
     textAlign: "center",
   },
   notFound: {
     textAlign: "center",
     color: colors.textMuted,
+    fontSize: typography.fontSize.base,
     marginTop: spacing["3xl"],
+    marginBottom: spacing.lg,
   },
 });

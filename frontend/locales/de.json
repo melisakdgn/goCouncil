@@ -5,6 +5,7 @@
     "electionProcess": "Wahlprozess",
     "achievements": "Errungenschaften",
     "preferenceMatching": "Präferenz-Matching",
+    "wahlOMat": "Wahl-O-Mat",
     "faq": "FAQ",
     "contact": "Kontakt",
     "problems": "Probleme"
@@ -57,7 +58,8 @@
     "back": "Zurück zu den Kandidaten",
     "team": "Team",
     "independent": "Unabhängiger Kandidat",
-    "about": "Über"
+    "about": "Über",
+    "notFound": "Kandidat nicht gefunden."
   },
   "electionProcess": {
     "title": "Wahlprozess",
@@ -84,7 +86,27 @@
     "viewProfile": "Profil ansehen",
     "startOver": "Neu starten",
     "anonymous": "Ihre Antworten sind vollständig anonym.",
-    "loading": "Ihre Übereinstimmungen werden berechnet..."
+    "loading": "Ihre Übereinstimmungen werden berechnet...",
+    "resultsEmpty": "Keine Ergebnisse gefunden. Bitte füllen Sie zuerst den Fragebogen aus."
+  },
+  "wahlOMat": {
+    "title": "Wahl-O-Mat",
+    "subtitle": "Vergleichen Sie Ihre Ansichten mit den Positionen der Kandidaten — beantworten Sie drei These und sehen Sie Ihre besten Übereinstimmungen.",
+    "step": "These {{current}} von {{total}}",
+    "thesisLabel": "These",
+    "agree": "Stimme zu",
+    "neutral": "Enthaltung",
+    "disagree": "Stimme nicht zu",
+    "next": "Weiter",
+    "back": "Zurück",
+    "submit": "Ergebnis anzeigen",
+    "anonymous": "Ihre Antworten sind anonym und werden in dieser Demo nicht auf dem Server gespeichert.",
+    "resultsTitle": "Ihr Wahl-O-Mat-Ergebnis",
+    "resultsSubtitle": "Diese Kandidaten stimmen am ehesten mit Ihren Antworten auf die drei Thesen überein.",
+    "matchPercent": "{{percent}}% Übereinstimmung",
+    "viewProfile": "Profil ansehen",
+    "startOver": "Neu starten",
+    "sampleDisclaimer": "Nur Demo — die Übereinstimmung wird lokal aus drei Beispiel-Thesen berechnet."
   },
   "faq": {
     "title": "Häufig gestellte Fragen",
@@ -106,6 +128,20 @@
     "imprint": "Impressum",
     "dataProtection": "Datenschutz",
     "accessibility": "Barrierefreiheit"
+  },
+  "legal": {
+    "imprint": {
+      "title": "Impressum",
+      "body": "Go Council — Plattform für Betriebsratswahlen.\n\nDies ist eine Beispiel-Impressumsseite. Ersetzen Sie sie vor dem produktiven Einsatz durch Ihre offiziellen Angaben."
+    },
+    "dataProtection": {
+      "title": "Datenschutz",
+      "body": "Wir verarbeiten personenbezogene Daten nur, soweit dies für den Betrieb dieser Plattform erforderlich ist. Antworten im Präferenz-Matching und in der Wahl-O-Mat-Demo werden gemäß Ihrer Bereitstellungskonfiguration behandelt.\n\nErsetzen Sie diesen Text durch Ihre offizielle Datenschutzerklärung."
+    },
+    "accessibility": {
+      "title": "Barrierefreiheit",
+      "body": "Wir möchten diese Plattform für alle Mitarbeitenden zugänglich machen. Wenn Sie Barrieren feststellen, wenden Sie sich bitte an das Betriebsratsteam.\n\nErsetzen Sie diesen Text durch Ihre Barrierefreiheitserklärung."
+    }
   },
   "common": {
     "loading": "Laden...",

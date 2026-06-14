@@ -6,7 +6,11 @@ export const ROUTES = {
   achievements: "/achievements",
   preferenceMatching: "/preference-matching",
   preferenceResults: (sessionId: string) => `/preference-matching/results/${sessionId}`,
+  wahlOMat: "/wahl-o-mat",
   faq: "/faq",
   contact: "/contact",
   problems: "/problems",
+  imprint: "/imprint",
+  dataProtection: "/data-protection",
+  accessibility: "/accessibility",
 } as const;

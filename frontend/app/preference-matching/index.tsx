@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
+import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import AppLayout from "@/components/layout/AppLayout";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
@@ -9,6 +10,7 @@ import SectionTitle from "@/components/ui/SectionTitle";
 import { MOCK_PREFERENCE_QUESTIONS } from "@/constants/mockData";
 import { ROUTES } from "@/constants/routes";
 import { borderRadius, colors, spacing, typography } from "@/constants/theme";
+import { usePreferenceQuestions } from "@/hooks/usePreferenceQuestions";
 import { submitPreferenceAnswers } from "@/services/preferenceService";
 import { usePreferenceStore } from "@/store/preferenceStore";
 
@@ -17,19 +19,35 @@ export default function PreferenceMatchingPage() {
   const router = useRouter();
   const isDE = i18n.language === "de";
 
-  const { questions, answers, currentStep, setAnswer, nextStep, prevStep, setResult, getAnswerPayload, reset } =
+  const { data, isLoading, isError } = usePreferenceQuestions();
+  const { answers, currentStep, setAnswer, nextStep, prevStep, clampStep, setResult, getAnswerPayload, reset } =
     usePreferenceStore();
 
-  const allQuestions = questions.length > 0 ? questions : MOCK_PREFERENCE_QUESTIONS;
-  const question = allQuestions[currentStep];
-  const isLast = currentStep === allQuestions.length - 1;
+  const allQuestions = useMemo(() => {
+    if (data && data.length > 0) return data;
+    if (isError) return MOCK_PREFERENCE_QUESTIONS;
+    return [];
+  }, [data, isError]);
+
+  const safeStep = allQuestions.length > 0 ? Math.min(currentStep, allQuestions.length - 1) : 0;
+  const question = allQuestions[safeStep];
+  const isLast = safeStep === allQuestions.length - 1;
   const selectedValue = question ? answers[question.id] : undefined;
+
+  useEffect(() => {
+    if (allQuestions.length > 0) {
+      clampStep(allQuestions.length);
+    }
+  }, [allQuestions.length, clampStep]);
 
   const mutation = useMutation({
     mutationFn: submitPreferenceAnswers,
     onSuccess: (result) => {
       setResult(result);
-      router.push(ROUTES.preferenceResults(result.session_id));
+      router.push({
+        pathname: "/preference-matching/results/[sessionId]",
+        params: { sessionId: result.session_id },
+      });
     },
   });
 
@@ -41,7 +59,31 @@ export default function PreferenceMatchingPage() {
     }
   };
 
-  if (!question) return null;
+  if (isLoading) {
+    return (
+      <AppLayout>
+        <View style={styles.centered}>
+          <ActivityIndicator size="large" color={colors.primaryNavy} />
+          <Text style={styles.loadingText}>{t("preference.loading")}</Text>
+        </View>
+      </AppLayout>
+    );
+  }
+
+  if (!question) {
+    return (
+      <AppLayout>
+        <Text style={styles.errorText}>{t("common.error")}</Text>
+        <Button
+          label={t("preference.startOver")}
+          variant="outline"
+          size="md"
+          style={styles.retryButton}
+          onPress={() => router.push(ROUTES.preferenceMatching)}
+        />
+      </AppLayout>
+    );
+  }
 
   const questionText = isDE && question.text_de ? question.text_de : question.text;
 
@@ -50,15 +92,14 @@ export default function PreferenceMatchingPage() {
       <SectionTitle title={t("preference.title")} subtitle={t("preference.subtitle")} />
 
       <Text style={styles.stepIndicator}>
-        {t("preference.step", { current: currentStep + 1, total: allQuestions.length })}
+        {t("preference.step", { current: safeStep + 1, total: allQuestions.length })}
       </Text>
 
-      {/* Progress bar */}
       <View style={styles.progressTrack}>
         <View
           style={[
             styles.progressFill,
-            { width: `${((currentStep + 1) / allQuestions.length) * 100}%` },
+            { width: `${((safeStep + 1) / allQuestions.length) * 100}%` },
           ]}
         />
       </View>
@@ -78,7 +119,6 @@ export default function PreferenceMatchingPage() {
                 size="md"
                 fullWidth
                 onPress={() => setAnswer(question.id, opt.value)}
-                style={isSelected ? styles.selectedOption : undefined}
               />
             );
           })}
@@ -87,8 +127,12 @@ export default function PreferenceMatchingPage() {
         <Text style={styles.anonymous}>{t("preference.anonymous")}</Text>
       </Card>
 
+      {mutation.isError ? (
+        <Text style={styles.errorText}>{mutation.error.message}</Text>
+      ) : null}
+
       <View style={styles.actions}>
-        {currentStep > 0 && (
+        {safeStep > 0 && (
           <Button label={t("preference.back")} variant="ghost" size="md" onPress={prevStep} />
         )}
         <Button
@@ -105,6 +149,26 @@ export default function PreferenceMatchingPage() {
 }
 
 const styles = StyleSheet.create({
+  centered: {
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.md,
+    paddingVertical: spacing["4xl"],
+  },
+  loadingText: {
+    fontSize: typography.fontSize.base,
+    color: colors.textMuted,
+  },
+  errorText: {
+    fontSize: typography.fontSize.sm,
+    color: colors.error,
+    textAlign: "center",
+    marginTop: spacing.md,
+  },
+  retryButton: {
+    alignSelf: "center",
+    marginTop: spacing.lg,
+  },
   stepIndicator: {
     fontSize: typography.fontSize.sm,
     color: colors.textMuted,
@@ -132,7 +196,6 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
   },
   options: { gap: spacing.md },
-  selectedOption: {},
   anonymous: {
     fontSize: typography.fontSize.xs,
     color: colors.textMuted,

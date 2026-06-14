@@ -1,4 +1,4 @@
-#!/Users/melisakdogan/go-council/backend/.venv/bin/python
+#!/Users/faseela/Projects/goCouncil/backend/.venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys
