@@ -113,6 +113,8 @@ export default function PreferenceResultsPage() {
         ))}
       </View>
 
+      <Text style={styles.disclaimer}>{t("preference.disclaimer")}</Text>
+
       <Button
         label={t("preference.startOver")}
         variant="outline"
@@ -256,8 +258,16 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semiBold,
     color: colors.accentOrange,
   },
+  disclaimer: {
+    marginTop: spacing["2xl"],
+    fontSize: typography.fontSize.sm,
+    color: colors.textMuted,
+    textAlign: "center",
+    lineHeight: typography.fontSize.sm * 1.6,
+    fontStyle: "italic",
+  },
   startOverButton: {
     alignSelf: "center",
-    marginTop: spacing["2xl"],
+    marginTop: spacing.lg,
   },
 });

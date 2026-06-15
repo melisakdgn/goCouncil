@@ -1,4 +1,4 @@
-import type { Achievement, Candidate, Election, FAQItem, NewsUpdate, PreferenceQuestion } from "@/types";
+import type { Achievement, Candidate, Election, FAQItem, MatchResult, NewsUpdate, PreferenceQuestion } from "@/types";
 
 export const MOCK_CANDIDATES: Candidate[] = [
   { id: "1", name: "Anna Müller", role: "HR Business Partner", team_id: "a", team: { id: "a", name: "Team A" }, bio: "Anna has 8 years of HR experience and advocates for fair representation.", bio_de: "Anna hat 8 Jahre HR-Erfahrung und setzt sich für faire Vertretung ein.", photo_url: undefined, is_independent: false, is_active: true, sort_order: 1, created_at: "2024-01-01T00:00:00Z", updated_at: "2024-01-01T00:00:00Z" },
@@ -47,42 +47,97 @@ export const MOCK_NEWS: NewsUpdate[] = [
   { id: "n3", date: "2024-04-25", title: "Election period announced", title_de: "Wahlzeitraum bekanntgegeben", summary: "The works council election will take place from 10.–21. June 2024.", summary_de: "Die Betriebsratswahl findet vom 10.–21. Juni 2024 statt." },
 ];
 
+function scaleOptions(qId: string): PreferenceQuestion["options"] {
+  return [
+    { id: `${qId}_sa`, text: "Strongly agree", text_de: "Stimme voll zu", value: "strongly_agree", sort_order: 1 },
+    { id: `${qId}_a`, text: "Agree", text_de: "Stimme zu", value: "agree", sort_order: 2 },
+    { id: `${qId}_n`, text: "Neutral", text_de: "Neutral", value: "neutral", sort_order: 3 },
+    { id: `${qId}_d`, text: "Disagree", text_de: "Stimme nicht zu", value: "disagree", sort_order: 4 },
+    { id: `${qId}_sd`, text: "Strongly disagree", text_de: "Stimme gar nicht zu", value: "strongly_disagree", sort_order: 5 },
+  ];
+}
+
 export const MOCK_PREFERENCE_QUESTIONS: PreferenceQuestion[] = [
-  {
-    id: "q1",
-    text: "What topic matters most to you?",
-    text_de: "Welches Thema ist Ihnen am wichtigsten?",
-    category: "priorities",
-    sort_order: 1,
-    options: [
-      { id: "o1", text: "Remote & Flexibility", text_de: "Remote & Flexibilität", value: "remote", sort_order: 1 },
-      { id: "o2", text: "Salary & Benefits", text_de: "Gehalt & Leistungen", value: "salary", sort_order: 2 },
-      { id: "o3", text: "Workplace Safety", text_de: "Arbeitssicherheit", value: "safety", sort_order: 3 },
-      { id: "o4", text: "Career Development", text_de: "Karriereentwicklung", value: "career", sort_order: 4 },
-    ],
-  },
-  {
-    id: "q2",
-    text: "How do you prefer the council to communicate?",
-    text_de: "Wie soll der Betriebsrat kommunizieren?",
-    category: "communication",
-    sort_order: 2,
-    options: [
-      { id: "o5", text: "Regular town halls", text_de: "Regelmäßige Versammlungen", value: "townhall", sort_order: 1 },
-      { id: "o6", text: "Monthly newsletter", text_de: "Monatlicher Newsletter", value: "newsletter", sort_order: 2 },
-      { id: "o7", text: "Digital chat/intranet", text_de: "Digitaler Chat/Intranet", value: "digital", sort_order: 3 },
-    ],
-  },
-  {
-    id: "q3",
-    text: "Which working model do you prefer?",
-    text_de: "Welches Arbeitsmodell bevorzugen Sie?",
-    category: "workmodel",
-    sort_order: 3,
-    options: [
-      { id: "o8", text: "Full remote", text_de: "Vollständig remote", value: "full_remote", sort_order: 1 },
-      { id: "o9", text: "Hybrid (2–3 days office)", text_de: "Hybrid (2–3 Tage Büro)", value: "hybrid", sort_order: 2 },
-      { id: "o10", text: "Mostly on-site", text_de: "Überwiegend vor Ort", value: "onsite", sort_order: 3 },
-    ],
-  },
+  { id: "q1",  text: "The works council should prioritize flexible working hour models.", text_de: "Der Betriebsrat sollte flexible Arbeitszeitmodelle priorisieren.", category: "flexible_hours", sort_order: 1, options: scaleOptions("q1") },
+  { id: "q2",  text: "Remote and hybrid work options should be expanded across more roles.", text_de: "Remote- und Hybrid-Arbeitsoptionen sollten für mehr Rollen ausgeweitet werden.", category: "remote_work", sort_order: 2, options: scaleOptions("q2") },
+  { id: "q3",  text: "The works council should push for greater salary transparency.", text_de: "Der Betriebsrat sollte sich für mehr Gehaltstransparenz einsetzen.", category: "salary_transparency", sort_order: 3, options: scaleOptions("q3") },
+  { id: "q4",  text: "Improving workplace safety standards should be a top priority.", text_de: "Die Verbesserung von Arbeitssicherheitsstandards sollte eine Top-Priorität sein.", category: "workplace_safety", sort_order: 4, options: scaleOptions("q4") },
+  { id: "q5",  text: "The works council should actively promote diversity and inclusion.", text_de: "Der Betriebsrat sollte Diversität und Inklusion aktiv fördern.", category: "diversity_inclusion", sort_order: 5, options: scaleOptions("q5") },
+  { id: "q6",  text: "The works council should push for better mental health support for employees.", text_de: "Der Betriebsrat sollte sich für bessere Unterstützung der psychischen Gesundheit einsetzen.", category: "mental_health", sort_order: 6, options: scaleOptions("q6") },
+  { id: "q7",  text: "More investment in employee training and career development is needed.", text_de: "Mehr Investitionen in Mitarbeiterweiterbildung und Karriereentwicklung sind nötig.", category: "training", sort_order: 7, options: scaleOptions("q7") },
+  { id: "q8",  text: "Better communication between employees and management is a key priority.", text_de: "Bessere Kommunikation zwischen Mitarbeitern und Management hat hohe Priorität.", category: "communication", sort_order: 8, options: scaleOptions("q8") },
+  { id: "q9",  text: "Fair treatment and equal opportunities for all employees should be a core focus.", text_de: "Faire Behandlung und gleiche Chancen für alle Mitarbeiter sollte ein Kernthema sein.", category: "fair_treatment", sort_order: 9, options: scaleOptions("q9") },
+  { id: "q10", text: "Digitalization of workplace processes is important and should be accelerated.", text_de: "Die Digitalisierung von Arbeitsprozessen ist wichtig und sollte beschleunigt werden.", category: "digitalization", sort_order: 10, options: scaleOptions("q10") },
+  { id: "q11", text: "The works council should provide stronger support for young employees and trainees.", text_de: "Der Betriebsrat sollte junge Mitarbeiter und Auszubildende stärker unterstützen.", category: "young_employees", sort_order: 11, options: scaleOptions("q11") },
+  { id: "q12", text: "Improving work-life balance should be central to the works council's agenda.", text_de: "Die Verbesserung der Work-Life-Balance sollte zentral auf der Agenda stehen.", category: "work_life_balance", sort_order: 12, options: scaleOptions("q12") },
 ];
+
+const ANSWER_SCORES: Record<string, number> = {
+  strongly_agree: 2, agree: 1, neutral: 0, disagree: -1, strongly_disagree: -2,
+};
+
+const CATEGORY_LABELS: Record<string, string> = {
+  flexible_hours: "Flexible working hours",
+  remote_work: "Remote work",
+  salary_transparency: "Salary transparency",
+  workplace_safety: "Workplace safety",
+  diversity_inclusion: "Diversity & inclusion",
+  mental_health: "Mental health support",
+  training: "Training opportunities",
+  communication: "Communication with management",
+  fair_treatment: "Fair treatment",
+  digitalization: "Digitalization",
+  young_employees: "Support for young employees",
+  work_life_balance: "Work-life balance",
+};
+
+const CANDIDATE_PRIORITIES: Record<string, string[]> = {
+  "1": ["fair_treatment", "communication", "mental_health"],
+  "2": ["remote_work", "digitalization", "training"],
+  "3": ["diversity_inclusion", "communication", "young_employees"],
+  "4": ["workplace_safety", "fair_treatment", "flexible_hours"],
+  "5": ["training", "salary_transparency", "digitalization"],
+  "6": ["digitalization", "remote_work", "salary_transparency"],
+};
+
+export function computeLocalMatchResult(
+  answers: Record<string, string>,
+  questions: PreferenceQuestion[],
+): MatchResult {
+  const categoryScores: Record<string, number> = {};
+  for (const q of questions) {
+    const ans = answers[q.id];
+    if (!ans || ans === "skip" || !q.category) continue;
+    categoryScores[q.category] = (categoryScores[q.category] ?? 0) + (ANSWER_SCORES[ans] ?? 0);
+  }
+
+  const positiveTopics = Object.entries(categoryScores)
+    .filter(([, v]) => v > 0)
+    .sort(([, a], [, b]) => b - a)
+    .map(([k]) => k);
+
+  const matches = MOCK_CANDIDATES.map((c) => {
+    const priorities = CANDIDATE_PRIORITIES[c.id] ?? [];
+    const matching = positiveTopics.filter((t) => priorities.includes(t));
+    const base = priorities.length > 0 ? Math.round((matching.length / priorities.length) * 100) : 50;
+    const pct = Math.max(20, Math.min(97, base));
+    return {
+      candidate_id: c.id,
+      candidate_name: c.name,
+      candidate_role: c.role,
+      team_name: c.team?.name,
+      score: matching.length,
+      match_percentage: pct,
+      matching_topics: matching.map((t) => CATEGORY_LABELS[t] ?? t),
+    };
+  });
+
+  matches.sort((a, b) => b.match_percentage - a.match_percentage);
+
+  return {
+    session_id: `local-${Date.now()}`,
+    top_matches: matches.slice(0, 3),
+    total_questions: questions.length,
+    answered_questions: Object.values(answers).filter((v) => v && v !== "skip").length,
+  };
+}

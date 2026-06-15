@@ -2,17 +2,62 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, StyleSheet, Text, View } from "react-native";
 import AppLayout from "@/components/layout/AppLayout";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import SectionTitle from "@/components/ui/SectionTitle";
-import { MOCK_PREFERENCE_QUESTIONS } from "@/constants/mockData";
+import { MOCK_PREFERENCE_QUESTIONS, computeLocalMatchResult } from "@/constants/mockData";
 import { ROUTES } from "@/constants/routes";
 import { borderRadius, colors, spacing, typography } from "@/constants/theme";
 import { usePreferenceQuestions } from "@/hooks/usePreferenceQuestions";
 import { submitPreferenceAnswers } from "@/services/preferenceService";
 import { usePreferenceStore } from "@/store/preferenceStore";
+import type { PreferenceQuestion } from "@/types";
+
+// After which step indices (0-based) to show an insight card
+const INSIGHT_STEPS = new Set([4, 8, 11]);
+
+const SCORE_MAP: Record<string, number> = {
+  strongly_agree: 2, agree: 1, neutral: 0, disagree: -1, strongly_disagree: -2,
+};
+
+function getInsightKey(
+  answers: Record<string, string>,
+  questions: PreferenceQuestion[],
+  upToStep: number,
+): string {
+  const scores: Record<string, number> = {};
+  for (let i = 0; i < upToStep; i++) {
+    const q = questions[i];
+    if (!q?.category) continue;
+    const ans = answers[q.id];
+    if (!ans || ans === "skip") continue;
+    scores[q.category] = (scores[q.category] ?? 0) + (SCORE_MAP[ans] ?? 0);
+  }
+
+  const top = Object.entries(scores)
+    .filter(([, v]) => v > 0)
+    .sort(([, a], [, b]) => b - a)
+    .map(([k]) => k);
+
+  if (top.includes("flexible_hours") || top.includes("remote_work") || top.includes("work_life_balance")) {
+    return "preference.insightFlexibility";
+  }
+  if (top.includes("mental_health") || top.includes("young_employees")) {
+    return "preference.insightWellbeing";
+  }
+  if (top.includes("salary_transparency") || top.includes("fair_treatment")) {
+    return "preference.insightTransparency";
+  }
+  if (top.includes("digitalization") || top.includes("training")) {
+    return "preference.insightGrowth";
+  }
+  if (top.includes("diversity_inclusion") || top.includes("workplace_safety")) {
+    return "preference.insightCare";
+  }
+  return "preference.insightDefault";
+}
 
 export default function PreferenceMatchingPage() {
   const { t, i18n } = useTranslation();
@@ -33,6 +78,10 @@ export default function PreferenceMatchingPage() {
   const question = allQuestions[safeStep];
   const isLast = safeStep === allQuestions.length - 1;
   const selectedValue = question ? answers[question.id] : undefined;
+  const isAnswered = Boolean(selectedValue) && selectedValue !== "skip";
+
+  const showInsight = INSIGHT_STEPS.has(safeStep) && safeStep > 0;
+  const insightKey = showInsight ? getInsightKey(answers, allQuestions, safeStep) : null;
 
   useEffect(() => {
     if (allQuestions.length > 0) {
@@ -49,11 +98,32 @@ export default function PreferenceMatchingPage() {
         params: { sessionId: result.session_id },
       });
     },
+    onError: () => {
+      const localResult = computeLocalMatchResult(answers, allQuestions);
+      setResult(localResult);
+      router.push({
+        pathname: "/preference-matching/results/[sessionId]",
+        params: { sessionId: localResult.session_id },
+      });
+    },
   });
+
+  const goToResults = () => {
+    mutation.mutate({ answers: getAnswerPayload() });
+  };
 
   const handleNext = () => {
     if (isLast) {
-      mutation.mutate({ answers: getAnswerPayload() });
+      goToResults();
+    } else {
+      nextStep();
+    }
+  };
+
+  const handleSkip = () => {
+    setAnswer(question!.id, "skip");
+    if (isLast) {
+      goToResults();
     } else {
       nextStep();
     }
@@ -79,7 +149,7 @@ export default function PreferenceMatchingPage() {
           variant="outline"
           size="md"
           style={styles.retryButton}
-          onPress={() => router.push(ROUTES.preferenceMatching)}
+          onPress={() => { reset(); router.push(ROUTES.preferenceMatching); }}
         />
       </AppLayout>
     );
@@ -91,17 +161,26 @@ export default function PreferenceMatchingPage() {
     <AppLayout>
       <SectionTitle title={t("preference.title")} subtitle={t("preference.subtitle")} />
 
-      <Text style={styles.stepIndicator}>
-        {t("preference.step", { current: safeStep + 1, total: allQuestions.length })}
-      </Text>
+      {insightKey && (
+        <View style={styles.insightCard}>
+          <Text style={styles.insightIcon}>💡</Text>
+          <Text style={styles.insightText}>{t(insightKey)}</Text>
+        </View>
+      )}
 
-      <View style={styles.progressTrack}>
-        <View
-          style={[
-            styles.progressFill,
-            { width: `${((safeStep + 1) / allQuestions.length) * 100}%` },
-          ]}
-        />
+      <View style={styles.progressHeader}>
+        <Text style={styles.stepIndicator}>
+          {t("preference.step", { current: safeStep + 1, total: allQuestions.length })}
+        </Text>
+      </View>
+
+      <View style={styles.dotProgress}>
+        {allQuestions.map((_, i) => (
+          <View
+            key={i}
+            style={[styles.dot, i <= safeStep ? styles.dotFilled : styles.dotEmpty]}
+          />
+        ))}
       </View>
 
       <Card style={styles.questionCard}>
@@ -112,14 +191,21 @@ export default function PreferenceMatchingPage() {
             const optText = isDE && opt.text_de ? opt.text_de : opt.text;
             const isSelected = selectedValue === opt.value;
             return (
-              <Button
+              <Pressable
                 key={opt.id}
-                label={optText}
-                variant={isSelected ? "primary" : "outline"}
-                size="md"
-                fullWidth
+                accessibilityRole="button"
+                accessibilityState={{ selected: isSelected }}
                 onPress={() => setAnswer(question.id, opt.value)}
-              />
+                style={({ pressed }) => [
+                  styles.optionButton,
+                  isSelected && styles.optionButtonSelected,
+                  pressed && styles.optionButtonPressed,
+                ]}
+              >
+                <Text style={[styles.optionLabel, isSelected && styles.optionLabelSelected]}>
+                  {optText}
+                </Text>
+              </Pressable>
             );
           })}
         </View>
@@ -127,19 +213,22 @@ export default function PreferenceMatchingPage() {
         <Text style={styles.anonymous}>{t("preference.anonymous")}</Text>
       </Card>
 
-      {mutation.isError ? (
-        <Text style={styles.errorText}>{mutation.error.message}</Text>
-      ) : null}
-
       <View style={styles.actions}>
         {safeStep > 0 && (
           <Button label={t("preference.back")} variant="ghost" size="md" onPress={prevStep} />
         )}
         <Button
+          label={t("preference.skip")}
+          variant="ghost"
+          size="md"
+          onPress={handleSkip}
+          disabled={mutation.isPending}
+        />
+        <Button
           label={isLast ? t("preference.submit") : t("preference.next")}
           variant="secondary"
           size="md"
-          disabled={!selectedValue}
+          disabled={!isAnswered}
           loading={mutation.isPending}
           onPress={handleNext}
         />
@@ -169,22 +258,55 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: spacing.lg,
   },
+  insightCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    backgroundColor: colors.backgroundSection,
+    borderLeftWidth: 4,
+    borderLeftColor: colors.accentOrange,
+    borderRadius: borderRadius.md,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    marginBottom: spacing.lg,
+  },
+  insightIcon: {
+    fontSize: 18,
+  },
+  insightText: {
+    flex: 1,
+    fontSize: typography.fontSize.sm,
+    color: colors.textPrimary,
+    fontWeight: typography.fontWeight.medium,
+    lineHeight: typography.fontSize.sm * 1.5,
+  },
+  progressHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: spacing.sm,
+  },
   stepIndicator: {
     fontSize: typography.fontSize.sm,
     color: colors.textMuted,
-    marginBottom: spacing.sm,
+    fontWeight: typography.fontWeight.medium,
   },
-  progressTrack: {
-    height: 6,
-    backgroundColor: colors.borderColor,
-    borderRadius: borderRadius.full,
+  dotProgress: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 6,
     marginBottom: spacing.xl,
-    overflow: "hidden",
   },
-  progressFill: {
-    height: "100%",
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
+  dotFilled: {
     backgroundColor: colors.accentOrange,
-    borderRadius: borderRadius.full,
+  },
+  dotEmpty: {
+    backgroundColor: colors.borderColor,
   },
   questionCard: {
     gap: spacing.xl,
@@ -194,8 +316,32 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.xl,
     fontWeight: typography.fontWeight.bold,
     color: colors.textPrimary,
+    lineHeight: typography.fontSize.xl * 1.4,
   },
-  options: { gap: spacing.md },
+  options: { gap: spacing.sm },
+  optionButton: {
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    borderRadius: borderRadius.md,
+    borderWidth: 1.5,
+    borderColor: colors.borderColor,
+    backgroundColor: colors.backgroundLight,
+  },
+  optionButtonSelected: {
+    borderColor: colors.primaryNavy,
+    backgroundColor: colors.primaryNavy,
+  },
+  optionButtonPressed: {
+    opacity: 0.8,
+  },
+  optionLabel: {
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.medium,
+    color: colors.textPrimary,
+  },
+  optionLabelSelected: {
+    color: colors.textOnDark,
+  },
   anonymous: {
     fontSize: typography.fontSize.xs,
     color: colors.textMuted,
@@ -204,6 +350,7 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: "row",
     justifyContent: "flex-end",
+    alignItems: "center",
     gap: spacing.md,
     marginTop: spacing.xl,
   },

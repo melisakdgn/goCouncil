@@ -21,7 +21,6 @@ const NAV_ITEMS = [
   { labelKey: "nav.electionProcess", href: ROUTES.electionProcess },
   { labelKey: "nav.achievements", href: ROUTES.achievements },
   { labelKey: "nav.preferenceMatching", href: ROUTES.preferenceMatching },
-  { labelKey: "nav.wahlOMat", href: ROUTES.wahlOMat },
   { labelKey: "nav.faq", href: ROUTES.faq },
   { labelKey: "nav.problems", href: ROUTES.problems },
   { labelKey: "nav.contact", href: ROUTES.contact },
