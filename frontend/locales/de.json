@@ -1,0 +1,206 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "election": "Wahl",
+    "candidates": "Kandidaten",
+    "electionProcess": "Wahlprozess",
+    "achievements": "Errungenschaften",
+    "preferenceMatching": "Präferenz-Matching",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "problems": "Probleme"
+  },
+  "home": {
+    "heroTitle1": "Gemeinsam stärker.",
+    "heroTitle2": "Besserer Arbeitsplatz.",
+    "heroSubtitle": "Wir unterstützen Ihre Betriebsratswahl – mit klaren Prozessen, den richtigen Informationen und Lösungen, die einen Unterschied machen.",
+    "heroCTA": "Mehr erfahren",
+    "candidatesTitle": "Kandidaten",
+    "candidatesSubtitle": "Lernen Sie die Menschen kennen, die für den Betriebsrat kandidieren.",
+    "viewAll": "Alle anzeigen",
+    "showMore": "Mehr Kandidaten anzeigen",
+    "achievementsTitle": "Unsere Errungenschaften",
+    "newsTitle": "Neuigkeiten & Updates",
+    "participationTitle": "Ihre Teilnahme zählt!",
+    "participationSubtitle": "Gemeinsam können wir eine faire und positive Zukunft am Arbeitsplatz gestalten.",
+    "participationCTA": "Mehr erfahren",
+    "pillars": {
+      "fairRep": "Faire Vertretung",
+      "fairRepDesc": "Für alle Mitarbeiter – unabhängig und unparteiisch.",
+      "strongTogether": "Gemeinsam stark",
+      "strongTogetherDesc": "Wir hören zu, verbinden und finden die richtigen Lösungen.",
+      "yourRights": "Ihre Rechte",
+      "yourRightsDesc": "Wir schützen Ihre Rechte und vertreten Ihre Interessen.",
+      "achievements": "Unsere Errungenschaften",
+      "achievementsDesc": "Echte Ergebnisse, die Mehrwert für Sie und Ihren Arbeitsplatz schaffen."
+    },
+    "electionProcessTitle": "Wahlprozess",
+    "electionProcessSubtitle": "Erfahren Sie mehr über die Schritte und wichtige Informationen.",
+    "preferenceTitle": "Präferenz-Matching",
+    "preferenceSubtitle": "Beantworten Sie ein paar Fragen zu dem, was Ihnen wichtig ist. Wir zeigen Ihnen die Top 3 Kandidaten, die am besten zu Ihren Präferenzen und Werten passen.",
+    "preferenceCTA": "Jetzt starten",
+    "preferenceFeature1Title": "Persönlich & anonym",
+    "preferenceFeature1Desc": "Ihre Antworten sind vertraulich.",
+    "preferenceFeature2Title": "Intelligentes Matching",
+    "preferenceFeature2Desc": "Unser System zeigt Ihnen die Kandidaten, die zu Ihren Präferenzen passen.",
+    "preferenceFeature3Title": "Top 3 Ergebnisse",
+    "preferenceFeature3Desc": "Sehen Sie Ihre besten Übereinstimmungen mit klaren Begründungen."
+  },
+  "candidates": {
+    "title": "Kandidaten",
+    "subtitle": "Lernen Sie die Menschen kennen, die für den Betriebsrat kandidieren.",
+    "viewProfile": "Profil ansehen",
+    "independent": "Unabhängig",
+    "searchPlaceholder": "Kandidaten suchen...",
+    "noResults": "Keine Kandidaten gefunden."
+  },
+  "candidateDetail": {
+    "back": "Zurück zu den Kandidaten",
+    "team": "Team",
+    "independent": "Unabhängiger Kandidat",
+    "about": "Über",
+    "notFound": "Kandidat nicht gefunden."
+  },
+  "electionProcess": {
+    "title": "Wahlprozess",
+    "subtitle": "Schritt-für-Schritt-Leitfaden zur Betriebsratswahl.",
+    "completed": "Abgeschlossen",
+    "current": "Aktuell",
+    "upcoming": "Bevorstehend"
+  },
+  "achievements": {
+    "title": "Unsere Errungenschaften",
+    "subtitle": "Echte Ergebnisse, die Mehrwert für Mitarbeiter und den Arbeitsplatz schaffen."
+  },
+  "preference": {
+    "title": "Präferenz-Matching",
+    "subtitle": "Beantworten Sie ein paar Fragen und entdecken Sie, welche Kandidaten am besten zu Ihren Werten passen.",
+    "step": "Frage {{current}} von {{total}}",
+    "next": "Weiter",
+    "back": "Zurück",
+    "skip": "Überspringen",
+    "submit": "Meine Übereinstimmungen anzeigen",
+    "stronglyAgree": "Stimme voll zu",
+    "agree": "Stimme zu",
+    "neutral": "Neutral",
+    "disagree": "Stimme nicht zu",
+    "stronglyDisagree": "Stimme gar nicht zu",
+    "resultsTitle": "Ihre Top-Übereinstimmungen",
+    "resultsSubtitle": "Basierend auf Ihren Antworten passen diese Kandidaten am besten zu Ihren Prioritäten.",
+    "matchPercent": "{{percent}}% Übereinstimmung",
+    "matchingTopics": "Gemeinsame Prioritäten",
+    "viewProfile": "Profil ansehen",
+    "startOver": "Neu starten",
+    "anonymous": "Ihre Antworten sind vollständig anonym.",
+    "loading": "Ihre Übereinstimmungen werden berechnet...",
+    "resultsEmpty": "Keine Ergebnisse gefunden. Bitte füllen Sie zuerst den Fragebogen aus.",
+    "disclaimer": "Dieses Ergebnis ist nur eine Empfehlung. Sie können weiterhin alle Kandidaten erkunden.",
+    "insightFlexibility": "Sie scheinen großen Wert auf flexible Arbeitsbedingungen zu legen.",
+    "insightWellbeing": "Ihre Antworten zeigen, dass das Wohlbefinden der Mitarbeiter für Sie Priorität hat.",
+    "insightTransparency": "Ihre Antworten zeigen, dass Transparenz und Fairness Ihnen wichtig sind.",
+    "insightGrowth": "Sie scheinen Wachstum, Lernen und Modernisierung am Arbeitsplatz zu schätzen.",
+    "insightCare": "Inklusion und ein sicherer Arbeitsplatz sind Ihnen offensichtlich wichtig.",
+    "insightDefault": "Interessant — Ihre Prioritäten zeichnen sich ab!"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Häufig gestellte Fragen zur Betriebsratswahl."
+  },
+  "contact": {
+    "title": "Kontakt",
+    "subtitle": "Nehmen Sie Kontakt mit dem Betriebsratsteam auf.",
+    "nameLabel": "Ihr Name",
+    "emailLabel": "Ihre E-Mail",
+    "subjectLabel": "Betreff (optional)",
+    "messageLabel": "Ihre Nachricht",
+    "submit": "Nachricht senden",
+    "successTitle": "Nachricht gesendet!",
+    "successSubtitle": "Vielen Dank für Ihre Anfrage. Wir werden uns bald bei Ihnen melden.",
+    "errorMessage": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+  },
+  "footer": {
+    "imprint": "Impressum",
+    "dataProtection": "Datenschutz",
+    "accessibility": "Barrierefreiheit"
+  },
+  "legal": {
+    "imprint": {
+      "title": "Impressum",
+      "body": "Go Council — Plattform für Betriebsratswahlen.\n\nDies ist eine Beispiel-Impressumsseite. Ersetzen Sie sie vor dem produktiven Einsatz durch Ihre offiziellen Angaben."
+    },
+    "dataProtection": {
+      "title": "Datenschutz",
+      "body": "Wir verarbeiten personenbezogene Daten nur, soweit dies für den Betrieb dieser Plattform erforderlich ist. Antworten im Präferenz-Matching und in der Wahl-O-Mat-Demo werden gemäß Ihrer Bereitstellungskonfiguration behandelt.\n\nErsetzen Sie diesen Text durch Ihre offizielle Datenschutzerklärung."
+    },
+    "accessibility": {
+      "title": "Barrierefreiheit",
+      "body": "Wir möchten diese Plattform für alle Mitarbeitenden zugänglich machen. Wenn Sie Barrieren feststellen, wenden Sie sich bitte an das Betriebsratsteam.\n\nErsetzen Sie diesen Text durch Ihre Barrierefreiheitserklärung."
+    }
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Etwas ist schiefgelaufen.",
+    "retry": "Erneut versuchen",
+    "viewAll": "Alle anzeigen"
+  },
+  "problems": {
+    "title": "Problembrett",
+    "subtitle": "Teilen Sie anonym Bedenken am Arbeitsplatz. Der Betriebsrat liest jeden Beitrag und antwortet.",
+    "reportButton": "Problem melden",
+    "cancelButton": "Abbrechen",
+    "emptyTitle": "Noch keine Probleme gemeldet",
+    "emptySubtitle": "Teilen Sie als Erste/r ein Arbeitsplatzproblem. Alle Beiträge sind vollständig anonym.",
+    "postedAnonymously": "Anonym veröffentlicht",
+    "form": {
+      "title": "Anonymes Problem melden",
+      "titleLabel": "Titel",
+      "titlePlaceholder": "Kurze Zusammenfassung des Problems",
+      "contentLabel": "Beschreibung",
+      "contentPlaceholder": "Beschreiben Sie das Problem ausführlich. Ihre Identität wird nicht weitergegeben.",
+      "categoryLabel": "Kategorie",
+      "urgencyLabel": "Dringlichkeit",
+      "submit": "Anonym einreichen",
+      "submitting": "Wird eingereicht...",
+      "successTitle": "Problem eingereicht!",
+      "successSubtitle": "Ihr Anliegen wurde anonym an den Betriebsrat weitergeleitet.",
+      "errorMessage": "Einreichung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+      "validationTitle": "Bitte geben Sie einen Titel ein.",
+      "validationContent": "Bitte beschreiben Sie das Problem."
+    },
+    "categories": {
+      "workplace_conditions": "Arbeitsbedingungen",
+      "salary_benefits": "Gehalt & Leistungen",
+      "management_communication": "Managementkommunikation",
+      "working_hours": "Arbeitszeiten",
+      "health_safety": "Gesundheit & Sicherheit",
+      "discrimination_fairness": "Diskriminierung & Fairness",
+      "infrastructure": "Infrastruktur",
+      "other": "Sonstiges"
+    },
+    "urgency": {
+      "low": "Niedrig",
+      "medium": "Mittel",
+      "high": "Hoch"
+    },
+    "status": {
+      "new": "Neu",
+      "under_review": "In Prüfung",
+      "responded": "Beantwortet",
+      "resolved": "Gelöst"
+    },
+    "likes": "{{count}} Likes",
+    "comments": "{{count}} Kommentare",
+    "councilResponse": "Betriebsratsantwort",
+    "noResponse": "Noch keine offizielle Antwort",
+    "addResponse": "Betriebsratsantwort hinzufügen",
+    "responseLabel": "Offizielle Antwort",
+    "responsePlaceholder": "Schreiben Sie die offizielle Betriebsratsantwort...",
+    "submitResponse": "Antwort veröffentlichen",
+    "hideComments": "Kommentare ausblenden",
+    "showComments": "{{count}} Kommentare anzeigen",
+    "commentPlaceholder": "Anonym kommentieren...",
+    "submitComment": "Senden",
+    "anonymousEmployee": "Anonymer Mitarbeiter",
+    "loadingError": "Probleme konnten nicht geladen werden. Bitte erneut versuchen."
+  }
+}

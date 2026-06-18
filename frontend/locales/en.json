@@ -1,0 +1,206 @@
+{
+  "nav": {
+    "home": "Home",
+    "election": "Election",
+    "candidates": "Candidates",
+    "electionProcess": "Election Process",
+    "achievements": "Achievements",
+    "preferenceMatching": "Preference Matching",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "problems": "Problems"
+  },
+  "home": {
+    "heroTitle1": "Stronger together.",
+    "heroTitle2": "Better workplace.",
+    "heroSubtitle": "We support your works council election – with clear processes, the right information and solutions that make a difference.",
+    "heroCTA": "Learn more",
+    "candidatesTitle": "Candidates",
+    "candidatesSubtitle": "Get to know the people who are running for the works council.",
+    "viewAll": "View all",
+    "showMore": "Show more candidates",
+    "achievementsTitle": "Our Achievements",
+    "newsTitle": "News & Updates",
+    "participationTitle": "Your participation counts!",
+    "participationSubtitle": "Together we can shape a fair and positive future at work.",
+    "participationCTA": "Learn more",
+    "pillars": {
+      "fairRep": "Fair representation",
+      "fairRepDesc": "For all employees – independent and impartial.",
+      "strongTogether": "Strong together",
+      "strongTogetherDesc": "We listen, connect and find the right solutions.",
+      "yourRights": "Your rights",
+      "yourRightsDesc": "We protect your rights and promote your interests.",
+      "achievements": "Our achievements",
+      "achievementsDesc": "Real results that create value for you and your workplace."
+    },
+    "electionProcessTitle": "Election Process",
+    "electionProcessSubtitle": "Learn more about the steps and important information.",
+    "preferenceTitle": "Preference Matching",
+    "preferenceSubtitle": "Answer a few questions about what matters to you. We will show you the top 3 candidates who best match your preferences and values.",
+    "preferenceCTA": "Start now",
+    "preferenceFeature1Title": "Personal & anonymous",
+    "preferenceFeature1Desc": "Your answers are confidential.",
+    "preferenceFeature2Title": "Smart matching",
+    "preferenceFeature2Desc": "Our system shows you the candidates who fit your preferences.",
+    "preferenceFeature3Title": "Top 3 results",
+    "preferenceFeature3Desc": "See your best matches with clear reasons."
+  },
+  "candidates": {
+    "title": "Candidates",
+    "subtitle": "Get to know the people running for the works council.",
+    "viewProfile": "View profile",
+    "independent": "Independent",
+    "searchPlaceholder": "Search candidates...",
+    "noResults": "No candidates found."
+  },
+  "candidateDetail": {
+    "back": "Back to candidates",
+    "team": "Team",
+    "independent": "Independent candidate",
+    "about": "About",
+    "notFound": "Candidate not found."
+  },
+  "electionProcess": {
+    "title": "Election Process",
+    "subtitle": "Step-by-step guide to the works council election.",
+    "completed": "Completed",
+    "current": "Current",
+    "upcoming": "Upcoming"
+  },
+  "achievements": {
+    "title": "Our Achievements",
+    "subtitle": "Real results that create value for employees and the workplace."
+  },
+  "preference": {
+    "title": "Preference Matching",
+    "subtitle": "Answer a few questions and discover which candidates align best with your values.",
+    "step": "Question {{current}} of {{total}}",
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip",
+    "submit": "See my matches",
+    "stronglyAgree": "Strongly agree",
+    "agree": "Agree",
+    "neutral": "Neutral",
+    "disagree": "Disagree",
+    "stronglyDisagree": "Strongly disagree",
+    "resultsTitle": "Your Top Matches",
+    "resultsSubtitle": "Based on your answers, these candidates align best with your priorities.",
+    "matchPercent": "{{percent}}% match",
+    "matchingTopics": "Shared priorities",
+    "viewProfile": "View profile",
+    "startOver": "Start over",
+    "anonymous": "Your answers are completely anonymous.",
+    "loading": "Calculating your matches...",
+    "resultsEmpty": "No results found. Please complete the questionnaire first.",
+    "disclaimer": "This result is only a recommendation. You can still explore all candidates.",
+    "insightFlexibility": "You seem to care strongly about flexible working conditions.",
+    "insightWellbeing": "Your answers show that employee wellbeing is a priority for you.",
+    "insightTransparency": "Your answers show that transparency and fairness are important to you.",
+    "insightGrowth": "You seem to value growth, learning, and modernization at work.",
+    "insightCare": "Inclusion and a safe workplace are clearly important to you.",
+    "insightDefault": "Interesting — your priorities are taking shape!"
+  },
+  "faq": {
+    "title": "FAQ",
+    "subtitle": "Frequently asked questions about the works council election."
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Get in touch with the works council team.",
+    "nameLabel": "Your name",
+    "emailLabel": "Your email",
+    "subjectLabel": "Subject (optional)",
+    "messageLabel": "Your message",
+    "submit": "Send message",
+    "successTitle": "Message sent!",
+    "successSubtitle": "Thank you for reaching out. We will get back to you soon.",
+    "errorMessage": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "imprint": "Imprint",
+    "dataProtection": "Data Protection",
+    "accessibility": "Accessibility"
+  },
+  "legal": {
+    "imprint": {
+      "title": "Imprint",
+      "body": "Go Council — Works Council Election Platform.\n\nThis is a sample imprint page. Replace with your organisation's legal details before production use."
+    },
+    "dataProtection": {
+      "title": "Data Protection",
+      "body": "We process personal data only as necessary to operate this platform. Preference matching and Wahl-O-Mat demo answers are handled according to your deployment configuration.\n\nReplace this text with your official privacy policy."
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "body": "We aim to make this platform accessible to all employees. If you encounter barriers, please contact the works council team.\n\nReplace this text with your accessibility statement."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "retry": "Try again",
+    "viewAll": "View all"
+  },
+  "problems": {
+    "title": "Problems Board",
+    "subtitle": "Share workplace concerns anonymously. The working council reads and responds to every post.",
+    "reportButton": "Report a Problem",
+    "cancelButton": "Cancel",
+    "emptyTitle": "No problems reported yet",
+    "emptySubtitle": "Be the first to share a workplace concern. All posts are completely anonymous.",
+    "postedAnonymously": "Posted anonymously",
+    "form": {
+      "title": "Report an Anonymous Problem",
+      "titleLabel": "Title",
+      "titlePlaceholder": "Brief summary of the issue",
+      "contentLabel": "Description",
+      "contentPlaceholder": "Describe the problem in detail. Your identity will not be shared.",
+      "categoryLabel": "Category",
+      "urgencyLabel": "Urgency",
+      "submit": "Submit Anonymously",
+      "submitting": "Submitting...",
+      "successTitle": "Problem submitted!",
+      "successSubtitle": "Your concern has been shared anonymously with the working council.",
+      "errorMessage": "Failed to submit. Please try again.",
+      "validationTitle": "Please enter a title.",
+      "validationContent": "Please describe the problem."
+    },
+    "categories": {
+      "workplace_conditions": "Workplace Conditions",
+      "salary_benefits": "Salary & Benefits",
+      "management_communication": "Management Communication",
+      "working_hours": "Working Hours",
+      "health_safety": "Health & Safety",
+      "discrimination_fairness": "Discrimination & Fairness",
+      "infrastructure": "Infrastructure",
+      "other": "Other"
+    },
+    "urgency": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "status": {
+      "new": "New",
+      "under_review": "Under Review",
+      "responded": "Responded",
+      "resolved": "Resolved"
+    },
+    "likes": "{{count}} likes",
+    "comments": "{{count}} comments",
+    "councilResponse": "Working Council Response",
+    "noResponse": "No official response yet",
+    "addResponse": "Add Council Response",
+    "responseLabel": "Official response",
+    "responsePlaceholder": "Write the official working council response...",
+    "submitResponse": "Publish Response",
+    "hideComments": "Hide comments",
+    "showComments": "Show {{count}} comments",
+    "commentPlaceholder": "Add an anonymous comment...",
+    "submitComment": "Post",
+    "anonymousEmployee": "Anonymous Employee",
+    "loadingError": "Could not load problems. Please try again."
+  }
+}
