@@ -4,7 +4,6 @@
     "strict": true,
     "baseUrl": ".",
     "moduleResolution": "bundler",
-    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./*"]
     }

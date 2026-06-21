@@ -33,8 +33,8 @@ const URGENCY_COLOR: Record<ProblemUrgency, string> = {
   high:   colors.error,
 };
 
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
+function formatDate(iso: string, locale: string) {
+  return new Date(iso).toLocaleDateString(locale === "de" ? "de-DE" : "en-US", {
     day: "2-digit",
     month: "short",
     year: "numeric",
@@ -60,7 +60,7 @@ export default function ProblemCard({
   onAddComment,
   onAddCouncilResponse,
 }: ProblemCardProps) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [expanded, setExpanded] = useState(false);
   const [showComments, setShowComments] = useState(false);
   const [showResponseForm, setShowResponseForm] = useState(false);
@@ -124,14 +124,14 @@ export default function ProblemCard({
         <MaterialCommunityIcons name="shield-account" size={12} color={colors.textMuted} />
         <Text style={styles.metaText}>{t("problems.postedAnonymously")}</Text>
         <View style={styles.metaDot} />
-        <Text style={styles.metaText}>{formatDate(problem.created_at)}</Text>
+        <Text style={styles.metaText}>{formatDate(problem.created_at, i18n.language)}</Text>
       </View>
 
       {/* ── Content ────────────────────────────────────────────────────── */}
       <Text style={styles.content}>{displayContent}</Text>
       {isLongContent && (
         <Pressable onPress={() => setExpanded((v) => !v)}>
-          <Text style={styles.showMoreText}>{expanded ? "Show less" : "Show more"}</Text>
+          <Text style={styles.showMoreText}>{expanded ? t("problems.showLess") : t("problems.showMore")}</Text>
         </Pressable>
       )}
 
@@ -174,7 +174,7 @@ export default function ProblemCard({
               <View style={styles.spacer} />
               {problem.council_response_created_at && (
                 <Text style={styles.responseDate}>
-                  {formatDate(problem.council_response_created_at)}
+                  {formatDate(problem.council_response_created_at, i18n.language)}
                 </Text>
               )}
             </View>

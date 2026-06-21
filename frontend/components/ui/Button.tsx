@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: borderRadius.md,
+    cursor: "pointer" as const,
   },
   fullWidth: { width: "100%" },
   pressed: { opacity: 0.8 },

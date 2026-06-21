@@ -191,7 +191,7 @@ export default function ProblemsPage() {
                       ]}
                       onPress={() => handleVote(problem.id, "up")}
                     >
-                      <Text style={styles.voteText}>▲ Upvote</Text>
+                      <Text style={styles.voteText}>▲ {t("problems.upvote")}</Text>
                     </Pressable>
 
                     <Text style={styles.voteCount}>{currentVotes}</Text>
@@ -203,13 +203,13 @@ export default function ProblemsPage() {
                       ]}
                       onPress={() => handleVote(problem.id, "down")}
                     >
-                      <Text style={styles.voteText}>▼ Downvote</Text>
+                      <Text style={styles.voteText}>▼ {t("problems.downvote")}</Text>
                     </Pressable>
                   </View>
 
                   <View style={styles.progressWrapper}>
                     <View style={styles.progressHeader}>
-                      <Text style={styles.progressLabel}>Council work progress</Text>
+                      <Text style={styles.progressLabel}>{t("problems.councilProgress")}</Text>
                       <Text style={styles.progressPercent}>{progress}%</Text>
                     </View>
 

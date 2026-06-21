@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AppLayout from "@/components/layout/AppLayout";
+import { useScrollToSection } from "@/components/layout/ScrollContext";
 import CandidateCard from "@/components/cards/CandidateCard";
 import AchievementCard from "@/components/cards/AchievementCard";
 import NewsUpdateCard from "@/components/cards/NewsUpdateCard";
@@ -33,12 +34,6 @@ const PILLARS = [
   { key: "yourRights",     icon: "shield-check",    descKey: "yourRightsDesc" },
   { key: "achievements",   icon: "trophy",          descKey: "achievementsDesc" },
 ] as const;
-
-// ─── Smooth scroll helper (web only) ──────────────────────────────────────────
-function scrollTo(sectionId: string) {
-  if (Platform.OS !== "web" || typeof document === "undefined") return;
-  document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth", block: "start" });
-}
 
 // ─── Value Pillar Card ────────────────────────────────────────────────────────
 function ValuePillarCard({
@@ -88,6 +83,7 @@ function SectionLabel({ text, light = false }: { text: string; light?: boolean }
 export default function HomePage() {
   const { t } = useTranslation();
   const router = useRouter();
+  const scrollToSection = useScrollToSection();
   const { height: windowHeight } = useWindowDimensions();
   // SSR returns windowHeight=0; initialize to 500 to match, then update after hydration
   const [sh, setSh] = useState(500);
@@ -124,7 +120,7 @@ export default function HomePage() {
             {/* Election badge */}
             <View style={styles.heroBadge}>
               <View style={styles.heroBadgePulse} />
-              <Text style={styles.heroBadgeText}>Works Council Election 2024</Text>
+              <Text style={styles.heroBadgeText}>{t("home.heroBadge")}</Text>
             </View>
 
             <Text style={styles.heroTitle1}>{t("home.heroTitle1")}</Text>
@@ -136,14 +132,17 @@ export default function HomePage() {
                 label={t("home.heroCTA")}
                 variant="secondary"
                 size="lg"
-                onPress={() => scrollTo("section-candidates")}
+                testID="hero-cta-candidates"
+                onPress={() => scrollToSection("section-candidates")}
               />
               <Pressable
+                accessibilityRole="button"
+                testID="hero-cta-preference"
                 style={({ pressed }) => [
                   styles.heroOutlineBtn,
                   pressed && styles.heroOutlineBtnPressed,
                 ]}
-                onPress={() => scrollTo("section-preference")}
+                onPress={() => scrollToSection("section-preference")}
               >
                 <Text style={styles.heroOutlineBtnText}>{t("home.preferenceCTA")} →</Text>
               </Pressable>
@@ -153,13 +152,13 @@ export default function HomePage() {
           {/* Stats row — visible on wider screens */}
           <View style={styles.heroRight}>
             {[
-              { value: "4,200+", label: "Employees" },
-              { value: "6",      label: "Candidates" },
-              { value: "42",     label: "Agreements" },
-            ].map(({ value, label }) => (
-              <View key={label} style={styles.heroStatCard}>
+              { value: "4,200+", labelKey: "home.statEmployees" },
+              { value: "6",      labelKey: "home.statCandidates" },
+              { value: "42",     labelKey: "home.statAgreements" },
+            ].map(({ value, labelKey }) => (
+              <View key={labelKey} style={styles.heroStatCard}>
                 <Text style={styles.heroStatValue}>{value}</Text>
-                <Text style={styles.heroStatLabel}>{label}</Text>
+                <Text style={styles.heroStatLabel}>{t(labelKey)}</Text>
               </View>
             ))}
           </View>
@@ -167,10 +166,12 @@ export default function HomePage() {
 
         {/* Scroll hint */}
         <Pressable
+          accessibilityRole="button"
+          testID="hero-scroll-hint"
           style={styles.scrollHint}
-          onPress={() => scrollTo("section-values")}
+          onPress={() => scrollToSection("section-values")}
         >
-          <Text style={styles.scrollHintText}>Scroll to explore</Text>
+          <Text style={styles.scrollHintText}>{t("home.scrollToExplore")}</Text>
           <Text style={styles.scrollHintArrow}>↓</Text>
         </Pressable>
       </ImageBackground>
@@ -178,16 +179,15 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           VALUE PILLARS
       ══════════════════════════════════════════════════════════════════════ */}
-      <View nativeID="section-values" style={[styles.whiteSection, { minHeight: sh }]}>
+      <View nativeID="section-values" style={styles.whiteSection}>
         <View style={styles.container}>
           <View style={styles.sectionIntro}>
-            <SectionLabel text="Our Values" />
+            <SectionLabel text={t("home.valuesLabel")} />
             <Text style={styles.sectionHeading}>
-              What we stand for — every day
+              {t("home.valuesHeading")}
             </Text>
             <Text style={styles.sectionSubheading}>
-              Fair representation, collective strength, and real results for every employee in your
-              workplace.
+              {t("home.valuesSubheading")}
             </Text>
           </View>
 
@@ -207,11 +207,11 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           CANDIDATES
       ══════════════════════════════════════════════════════════════════════ */}
-      <View nativeID="section-candidates" style={[styles.lightSection, { minHeight: sh }]}>
+      <View nativeID="section-candidates" style={styles.lightSection}>
         <View style={styles.container}>
           <View style={styles.sectionHeaderRow}>
             <View style={styles.sectionHeaderLeft}>
-              <SectionLabel text="Meet the team" />
+              <SectionLabel text={t("home.candidatesLabel")} />
               <Text style={styles.sectionHeading}>{t("home.candidatesTitle")}</Text>
               <Text style={styles.sectionSubheading}>{t("home.candidatesSubtitle")}</Text>
             </View>
@@ -227,33 +227,25 @@ export default function HomePage() {
               </View>
             ))}
           </View>
-
-          <View style={styles.centeredCTA}>
-            <Link href={ROUTES.candidates} asChild>
-              <Pressable style={styles.ghostBtn}>
-                <Text style={styles.ghostBtnText}>{t("home.showMore")} →</Text>
-              </Pressable>
-            </Link>
-          </View>
         </View>
       </View>
 
       {/* ══════════════════════════════════════════════════════════════════════
           ACHIEVEMENTS
       ══════════════════════════════════════════════════════════════════════ */}
-      <View nativeID="section-achievements" style={[styles.navySection, { minHeight: sh }]}>
+      <View nativeID="section-achievements" style={styles.navySection}>
         {/* Subtle background decoration */}
         <View style={styles.navyDeco1} />
         <View style={styles.navyDeco2} />
 
         <View style={styles.container}>
           <View style={styles.sectionIntro}>
-            <SectionLabel text="Impact" light />
+            <SectionLabel text={t("home.impactLabel")} light />
             <Text style={[styles.sectionHeading, styles.textWhite]}>
               {t("home.achievementsTitle")}
             </Text>
             <Text style={[styles.sectionSubheading, styles.textWhiteMuted]}>
-              Real results achieved through collective action and strong representation.
+              {t("home.achievementsSubtitle")}
             </Text>
           </View>
 
@@ -268,7 +260,7 @@ export default function HomePage() {
           <View style={styles.centeredCTA}>
             <Link href={ROUTES.achievements} asChild>
               <Pressable style={styles.ghostBtnWhite}>
-                <Text style={styles.ghostBtnWhiteText}>View all achievements →</Text>
+                <Text style={styles.ghostBtnWhiteText}>{t("home.viewAllAchievements")} →</Text>
               </Pressable>
             </Link>
           </View>
@@ -278,12 +270,12 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           PREFERENCE MATCHING
       ══════════════════════════════════════════════════════════════════════ */}
-      <View nativeID="section-preference" style={[styles.whiteSection, { minHeight: sh }]}>
+      <View nativeID="section-preference" style={styles.whiteSection}>
         <View style={styles.container}>
           <View style={styles.preferenceLayout}>
             {/* Left: description */}
             <View style={styles.preferenceLeft}>
-              <SectionLabel text="Smart Feature" />
+              <SectionLabel text={t("home.smartFeatureLabel")} />
               <Text style={styles.sectionHeading}>{t("home.preferenceTitle")}</Text>
               <Text style={styles.sectionSubheading}>{t("home.preferenceSubtitle")}</Text>
 
@@ -315,8 +307,9 @@ export default function HomePage() {
                 label={t("home.preferenceCTA")}
                 variant="primary"
                 size="lg"
-                onPress={() => router.push(ROUTES.preferenceMatching)}
-                style={{ alignSelf: "flex-start", marginTop: spacing["2xl"] } as any}
+                testID="preference-section-cta"
+                onPress={() => router.push("/preference-matching" as any)}
+                style={{ alignSelf: "flex-start", marginTop: spacing.xl } as any}
               />
             </View>
 
@@ -330,9 +323,9 @@ export default function HomePage() {
                     color={colors.accentOrange}
                   />
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.preferenceCardTitle}>Find your match</Text>
+                    <Text style={styles.preferenceCardTitle}>{t("home.preferenceCardTitle")}</Text>
                     <Text style={styles.preferenceCardSubtitle}>
-                      3 quick questions, instant results
+                      {t("home.preferenceCardSubtitle")}
                     </Text>
                   </View>
                 </View>
@@ -340,9 +333,13 @@ export default function HomePage() {
                 <View style={styles.preferenceCardDivider} />
 
                 <Text style={styles.preferenceCardQuestion}>
-                  What topic matters most to you?
+                  {t("home.preferenceCardQuestion")}
                 </Text>
-                {["Remote & Flexibility", "Salary & Benefits", "Workplace Safety"].map(
+                {[
+                  t("home.preferenceCardOption1"),
+                  t("home.preferenceCardOption2"),
+                  t("home.preferenceCardOption3"),
+                ].map(
                   (option, i) => (
                     <View
                       key={option}
@@ -377,7 +374,7 @@ export default function HomePage() {
                     size={13}
                     color={colors.textMuted}
                   />
-                  <Text style={styles.preferenceCardAnonymous}>Completely anonymous</Text>
+                  <Text style={styles.preferenceCardAnonymous}>{t("home.preferenceCardAnonymous")}</Text>
                 </View>
               </View>
             </View>
@@ -388,18 +385,18 @@ export default function HomePage() {
       {/* ══════════════════════════════════════════════════════════════════════
           ELECTION PROCESS
       ══════════════════════════════════════════════════════════════════════ */}
-      <View nativeID="section-election" style={[styles.lightSection, { minHeight: sh }]}>
+      <View nativeID="section-election" style={styles.lightSection}>
         <View style={styles.container}>
           <View style={styles.sectionHeaderRow}>
             <View style={styles.sectionHeaderLeft}>
-              <SectionLabel text="Timeline" />
+              <SectionLabel text={t("home.timelineLabel")} />
               <Text style={styles.sectionHeading}>{t("home.electionProcessTitle")}</Text>
               <Text style={styles.sectionSubheading}>
                 {t("home.electionProcessSubtitle")}
               </Text>
             </View>
             <Link href={ROUTES.electionProcess} style={styles.viewAllLink}>
-              <Text style={styles.viewAllLinkText}>Full details →</Text>
+              <Text style={styles.viewAllLinkText}>{t("home.fullDetails")} →</Text>
             </Link>
           </View>
 
@@ -416,7 +413,7 @@ export default function HomePage() {
         <View style={styles.container}>
           <View style={styles.sectionHeaderRow}>
             <View style={styles.sectionHeaderLeft}>
-              <SectionLabel text="Latest" />
+              <SectionLabel text={t("home.latestLabel")} />
               <Text style={styles.sectionHeading}>{t("home.newsTitle")}</Text>
             </View>
           </View>
@@ -447,7 +444,7 @@ export default function HomePage() {
             label={t("home.participationCTA")}
             variant="secondary"
             size="md"
-            onPress={() => scrollTo("section-preference")}
+            onPress={() => scrollToSection("section-preference")}
           />
         </View>
       </View>
@@ -468,8 +465,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignSelf: "center",
     paddingHorizontal: layout.containerPaddingH,
-    paddingVertical: spacing["3xl"],
-    flex: 1,
+    paddingVertical: spacing["2xl"],
   },
 
   // ── Section base backgrounds ──────────────────────────────────────────────
@@ -492,7 +488,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: spacing.sm,
-    marginBottom: spacing.md,
+    marginBottom: spacing.sm,
   },
   sectionLabelBar: {
     width: 24,
@@ -516,7 +512,7 @@ const styles = StyleSheet.create({
 
   // ── Section headings ──────────────────────────────────────────────────────
   sectionIntro: {
-    marginBottom: spacing["2xl"],
+    marginBottom: spacing.xl,
     maxWidth: 640,
   },
   sectionHeading: {
@@ -524,7 +520,7 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.extraBold,
     color: colors.textPrimary,
     lineHeight: typography.fontSize["3xl"] * 1.15,
-    marginBottom: spacing.md,
+    marginBottom: spacing.sm,
   },
   sectionSubheading: {
     fontSize: typography.fontSize.base,
@@ -541,8 +537,8 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "space-between",
     flexWrap: "wrap",
-    gap: spacing.lg,
-    marginBottom: spacing["2xl"],
+    gap: spacing.md,
+    marginBottom: spacing.xl,
   },
   sectionHeaderLeft: { flex: 1, minWidth: 240 },
   viewAllLink: { textDecorationLine: "none", marginTop: spacing.xs },
@@ -555,7 +551,7 @@ const styles = StyleSheet.create({
   // ── Shared CTA helpers ────────────────────────────────────────────────────
   centeredCTA: {
     alignItems: "center",
-    marginTop: spacing["2xl"],
+    marginTop: spacing.xl,
   },
   ghostBtn: {
     borderWidth: 1.5,
@@ -592,6 +588,7 @@ const styles = StyleSheet.create({
   heroOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: "rgba(8,20,43,0.62)",
+    pointerEvents: "none",
   },
   // Decorative layered circles
   heroDeco1: {
@@ -603,6 +600,7 @@ const styles = StyleSheet.create({
     borderRadius: 260,
     backgroundColor: "#1A3F7A",
     opacity: 0.25,
+    pointerEvents: "none",
   },
   heroDeco2: {
     position: "absolute",
@@ -613,6 +611,7 @@ const styles = StyleSheet.create({
     borderRadius: 180,
     backgroundColor: "#0D2E5C",
     opacity: 0.5,
+    pointerEvents: "none",
   },
   heroDeco3: {
     position: "absolute",
@@ -623,6 +622,7 @@ const styles = StyleSheet.create({
     borderRadius: 90,
     backgroundColor: "#1A3F7A",
     opacity: 0.15,
+    pointerEvents: "none",
   },
   heroAccentRing: {
     position: "absolute",
@@ -634,6 +634,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.accentOrange,
     opacity: 0.3,
+    pointerEvents: "none",
   },
   heroAccentDot: {
     position: "absolute",
@@ -644,17 +645,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: colors.accentOrange,
     opacity: 0.6,
+    pointerEvents: "none",
   },
   heroInner: {
     maxWidth: layout.maxContentWidth,
     width: "100%",
     alignSelf: "center",
     paddingHorizontal: layout.containerPaddingH,
-    paddingTop: spacing["4xl"],
-    paddingBottom: spacing["3xl"],
+    paddingTop: spacing["3xl"],
+    paddingBottom: spacing["2xl"],
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: spacing["3xl"],
+    gap: spacing["2xl"],
     alignItems: "center",
     flex: 1,
   },
@@ -675,7 +677,6 @@ const styles = StyleSheet.create({
     borderRadius: borderRadius.full,
     borderWidth: 1,
     borderColor: "rgba(232,119,34,0.3)",
-    marginBottom: spacing.md,
   },
   heroBadgePulse: {
     width: 7,
@@ -703,14 +704,12 @@ const styles = StyleSheet.create({
     color: colors.accentOrange,
     lineHeight: typography.fontSize["4xl"] * 1.1,
     letterSpacing: -0.5,
-    marginBottom: spacing.md,
   },
   heroSubtitle: {
     fontSize: typography.fontSize.md,
     color: "rgba(255,255,255,0.7)",
     lineHeight: typography.fontSize.md * 1.65,
     maxWidth: 480,
-    marginBottom: spacing.md,
   },
   // CTA buttons
   heroCTARow: {
@@ -718,7 +717,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: spacing.lg,
     flexWrap: "wrap",
-    marginTop: spacing.md,
+    marginTop: spacing.sm,
   },
   heroOutlineBtn: {
     borderWidth: 1.5,
@@ -770,8 +769,8 @@ const styles = StyleSheet.create({
   scrollHint: {
     alignSelf: "center",
     alignItems: "center",
-    paddingBottom: spacing["2xl"],
-    gap: 4,
+    paddingBottom: spacing.lg,
+    gap: 2,
   },
   scrollHintText: {
     fontSize: typography.fontSize.xs,
@@ -789,7 +788,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: spacing.lg,
-    marginTop: spacing.md,
   },
   pillarCard: {
     flex: 1,
@@ -857,6 +855,7 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     backgroundColor: "#FFFFFF",
     opacity: 0.03,
+    pointerEvents: "none",
   },
   navyDeco2: {
     position: "absolute",
@@ -867,12 +866,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: colors.accentOrange,
     opacity: 0.05,
+    pointerEvents: "none",
   },
   achievementsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     gap: spacing.lg,
-    marginTop: spacing.md,
   },
   achievementCell: {
     flex: 1,
@@ -883,9 +882,8 @@ const styles = StyleSheet.create({
   preferenceLayout: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: spacing["3xl"],
+    gap: spacing["2xl"],
     alignItems: "center",
-    flex: 1,
   },
   preferenceLeft: {
     flex: 1,
@@ -893,8 +891,8 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   preferenceFeatures: {
-    marginTop: spacing.lg,
-    gap: spacing.lg,
+    marginTop: spacing.md,
+    gap: spacing.md,
   },
   preferenceFeatureItem: {
     flexDirection: "row",
@@ -1043,7 +1041,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: spacing.lg,
-    marginTop: spacing.sm,
   },
   newsCell: {
     flex: 1,
@@ -1055,7 +1052,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.backgroundWhite,
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
-    paddingVertical: spacing["2xl"],
+    paddingVertical: spacing.xl,
   },
   ctaBannerInner: {
     maxWidth: layout.maxContentWidth,

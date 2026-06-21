@@ -10,7 +10,7 @@ interface NewsUpdateCardProps {
 }
 
 export default function NewsUpdateCard({ item, onPress }: NewsUpdateCardProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [hovered, setHovered] = useState(false);
   const isDE = i18n.language === "de";
 
@@ -50,7 +50,7 @@ export default function NewsUpdateCard({ item, onPress }: NewsUpdateCardProps) {
       {/* Read more */}
       <View style={styles.readMoreRow}>
         <Text style={[styles.readMore, hovered && styles.readMoreHovered]}>
-          Read more →
+          {t("common.readMore")} →
         </Text>
       </View>
     </Pressable>

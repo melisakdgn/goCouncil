@@ -37,6 +37,7 @@ export interface ElectionStep {
   description?: string;
   description_de?: string;
   date_label?: string;
+  date_label_de?: string;
   is_completed: boolean;
   is_current: boolean;
 }

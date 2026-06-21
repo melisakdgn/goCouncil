@@ -16,6 +16,7 @@ export default function ElectionTimeline({ steps }: ElectionTimelineProps) {
       {steps.map((step, idx) => {
         const title = isDE && step.title_de ? step.title_de : step.title;
         const description = isDE && step.description_de ? step.description_de : step.description;
+        const dateLabel = isDE && step.date_label_de ? step.date_label_de : step.date_label;
 
         return (
           <View key={step.id} style={styles.step}>
@@ -53,8 +54,8 @@ export default function ElectionTimeline({ steps }: ElectionTimelineProps) {
               {description ? (
                 <Text style={styles.stepDescription}>{description}</Text>
               ) : null}
-              {step.date_label ? (
-                <Text style={styles.dateLabel}>{step.date_label}</Text>
+              {dateLabel ? (
+                <Text style={styles.dateLabel}>{dateLabel}</Text>
               ) : null}
             </View>
           </View>

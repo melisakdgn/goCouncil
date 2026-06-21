@@ -1,62 +1,59 @@
-import { useEffect } from "react";
-import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
-import { Link } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import AppLayout from "@/components/layout/AppLayout";
+import { useScrollToSection } from "@/components/layout/ScrollContext";
 import CandidateCard from "@/components/cards/CandidateCard";
 import ElectionTimeline from "@/components/sections/ElectionTimeline";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import { useElectionHashScroll } from "@/hooks/useElectionHashScroll";
 import { MOCK_CANDIDATES, MOCK_ELECTION } from "@/constants/mockData";
 import { colors, layout, spacing, typography } from "@/constants/theme";
-
-function scrollTo(sectionId: string) {
-    if (Platform.OS !== "web" || typeof window === "undefined") return;
-
-    setTimeout(() => {
-        const element = window.document.getElementById(sectionId);
-        if (element) {
-            element.scrollIntoView({
-                behavior: "smooth",
-                block: "start",
-            });
-        }
-    }, 50);
-}
+import { ELECTION_SECTIONS } from "@/utils/scroll";
 
 export default function ElectionPage() {
-    useEffect(() => {
-        if (Platform.OS !== "web" || typeof sessionStorage === "undefined") return;
+    const { t } = useTranslation();
+    const router = useRouter();
+    const scrollToSection = useScrollToSection();
 
-        const sectionId = sessionStorage.getItem("goCouncilElectionSection");
-
-        if (sectionId) {
-            setTimeout(() => {
-                scrollTo(sectionId);
-                sessionStorage.removeItem("goCouncilElectionSection");
-            }, 400);
-        }
-    }, []);
+    useElectionHashScroll();
 
     return (
         <AppLayout fullWidth>
             <View style={styles.hero}>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Election</Text>
+                    <Text style={styles.title}>{t("electionPage.title")}</Text>
                     <Text style={styles.subtitle}>
-                        Explore candidates, follow the election process, and use preference matching to find your best candidate fit.
+                        {t("electionPage.subtitle")}
                     </Text>
 
                     <View style={styles.quickLinks}>
-                        <Pressable style={styles.quickLink} onPress={() => scrollTo("election-candidates")}>
-                            <Text style={styles.quickLinkText}>Candidates</Text>
+                        <Pressable
+                            accessibilityRole="button"
+                            testID="election-link-candidates"
+                            style={styles.quickLink}
+                            onPress={() => scrollToSection(ELECTION_SECTIONS.candidates)}
+                        >
+                            <Text style={styles.quickLinkText}>{t("electionPage.linkCandidates")}</Text>
                         </Pressable>
 
-                        <Pressable style={styles.quickLink} onPress={() => scrollTo("election-process")}>
-                            <Text style={styles.quickLinkText}>Election Process</Text>
+                        <Pressable
+                            accessibilityRole="button"
+                            testID="election-link-process"
+                            style={styles.quickLink}
+                            onPress={() => scrollToSection(ELECTION_SECTIONS.process)}
+                        >
+                            <Text style={styles.quickLinkText}>{t("electionPage.linkProcess")}</Text>
                         </Pressable>
 
-                        <Pressable style={styles.quickLink} onPress={() => scrollTo("election-preference")}>
-                            <Text style={styles.quickLinkText}>Preference Matching</Text>
+                        <Pressable
+                            accessibilityRole="button"
+                            testID="election-link-preference"
+                            style={styles.quickLink}
+                            onPress={() => scrollToSection(ELECTION_SECTIONS.preference)}
+                        >
+                            <Text style={styles.quickLinkText}>{t("electionPage.linkPreference")}</Text>
                         </Pressable>
                     </View>
                 </View>
@@ -64,9 +61,9 @@ export default function ElectionPage() {
 
             <View nativeID="election-candidates" style={styles.section}>
                 <View style={styles.container}>
-                    <Text style={styles.sectionTitle}>Candidates</Text>
+                    <Text style={styles.sectionTitle}>{t("electionPage.candidatesTitle")}</Text>
                     <Text style={styles.sectionSubtitle}>
-                        Learn about the candidates and compare their profiles.
+                        {t("electionPage.candidatesSubtitle")}
                     </Text>
 
                     <View style={styles.candidatesGrid}>
@@ -81,9 +78,9 @@ export default function ElectionPage() {
 
             <View nativeID="election-process" style={styles.sectionAlt}>
                 <View style={styles.container}>
-                    <Text style={styles.sectionTitle}>Election Process</Text>
+                    <Text style={styles.sectionTitle}>{t("electionPage.processTitle")}</Text>
                     <Text style={styles.sectionSubtitle}>
-                        Follow the works council election timeline step by step.
+                        {t("electionPage.processSubtitle")}
                     </Text>
 
                     <Card style={styles.timelineCard}>
@@ -94,23 +91,23 @@ export default function ElectionPage() {
 
             <View nativeID="election-preference" style={styles.section}>
                 <View style={styles.container}>
-                    <Text style={styles.sectionTitle}>Preference Matching</Text>
+                    <Text style={styles.sectionTitle}>{t("electionPage.preferenceTitle")}</Text>
                     <Text style={styles.sectionSubtitle}>
-                        Answer a short questionnaire and get candidate recommendations based on your preferences.
+                        {t("electionPage.preferenceSubtitle")}
                     </Text>
 
                     <Card style={styles.preferenceCard}>
-                        <Text style={styles.preferenceTitle}>Find your best-matching candidates</Text>
+                        <Text style={styles.preferenceTitle}>{t("electionPage.preferenceCardTitle")}</Text>
                         <Text style={styles.preferenceText}>
-                            The matching tool compares your workplace priorities with candidate focus areas and shows your top matches.
+                            {t("electionPage.preferenceCardText")}
                         </Text>
 
 
                         <Button
-                            label="Start Preference Matching"
+                            label={t("electionPage.startMatching")}
                             variant="secondary"
                             size="lg"
-                            onPress={() => scrollTo("election-preference")}
+                            onPress={() => router.push("/preference-matching" as any)}
                         />
 
                     </Card>
@@ -198,7 +195,7 @@ const styles = StyleSheet.create({
     preferenceCard: {
         padding: spacing["2xl"],
         gap: spacing.md,
-        maxWidth: 720,
+        width: "100%",
     },
     preferenceTitle: {
         fontSize: typography.fontSize.xl,
